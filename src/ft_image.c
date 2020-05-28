@@ -6,7 +6,7 @@
 /*   By: wbertoni <wbertoni@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/13 12:10:51 by wbertoni          #+#    #+#             */
-/*   Updated: 2020/05/13 12:11:11 by wbertoni         ###   ########.fr       */
+/*   Updated: 2020/05/27 10:12:46 by wbertoni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ t_data *ft_create_image(void *mlx_ptr, int x, int y)
 		return (NULL);
 	img->img = mlx_new_image(mlx_ptr, x, y);
 	img->addr = mlx_get_data_addr(img->img, &img->bits_per_pixel,
-								  &img->line_length, &img->endian);
+	&img->line_length, &img->endian);
 	return (img);
 }
 

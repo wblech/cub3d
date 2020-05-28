@@ -14,6 +14,7 @@ SRCS = 	$(DIR_SRC)/ft_utils.c \
 		$(DIR_SRC)/ft_image.c \
 		$(DIR_SRC)/ft_map.c \
 		$(DIR_SRC)/ft_color.c \
+		$(DIR_SRC)/ft_raycast.c \
 		$(DIR_SRC)/main.c
 
 NAME = main
@@ -42,5 +43,13 @@ fclean:	clean
 		$(RM) $(NAME)
 
 re:	fclean all
+
+test:	otest
+			$(CC) $(CFLAGS) test.o -I. -I$(DIR_MLX) -L$(DIR_MLX) -L. $(LFLAGS) -o $@ -g
+			./test
+
+otest:
+				$(CC) $(CFLAGS) -c ./src/test.c -I. -I$(DIR_MLX) -o test.o
+
 
 .PHONY:	all clean fclean re

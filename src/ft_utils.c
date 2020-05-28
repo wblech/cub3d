@@ -6,7 +6,7 @@
 /*   By: wbertoni <wbertoni@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/24 20:42:59 by wbertoni          #+#    #+#             */
-/*   Updated: 2020/05/13 20:31:02 by wbertoni         ###   ########.fr       */
+/*   Updated: 2020/05/26 16:26:11 by wbertoni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,42 @@ void my_mlx_pixel_put(t_data *data, int x, int y, int color)
 	*(unsigned int *)dst = color;
 }
 
-long double ft_degtorad(long double degree)
+float ft_degtorad(float degree)
 {
 	return (degree * (M_PI / 180));
+}
+
+float ft_normalize_angle(float angle)
+{
+	angle = remainder(angle, 2 * M_PI);
+	if (angle < 0)
+		angle += (2 * M_PI);
+	return (angle);
+}
+
+int ft_calc_facing(float ray_angle, t_face face)
+{
+	float is_facing_up;
+	float is_facing_down;
+	float is_facing_right;
+	float is_facing_left;
+
+	is_facing_down = (ray_angle < WEST && ray_angle > EAST) ? 1 : 0;
+	is_facing_up = !is_facing_down;
+	is_facing_right = (ray_angle > NORTH || ray_angle < SOUTH) ? 1 : 0;
+	is_facing_left = !is_facing_right;
+	if (face == up)
+		return (is_facing_up);
+	if (face == down)
+		return (is_facing_down);
+	if (face == right)
+		return (is_facing_right);
+	if (face == left)
+		return (is_facing_left);
+	return (0);
+}
+
+float ft_distance_between_points(t_point start, t_point end)
+{
+	return (sqrt(((end.y - start.y) * (end.y - start.y)) + ((end.x - start.x) * (end.x - start.x))));
 }

@@ -6,7 +6,7 @@
 /*   By: wbertoni <wbertoni@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/24 20:31:13 by wbertoni          #+#    #+#             */
-/*   Updated: 2020/05/13 20:31:02 by wbertoni         ###   ########.fr       */
+/*   Updated: 2020/05/18 18:01:50 by wbertoni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,8 +29,8 @@
 
 void ft_circle_polar(t_data *img, t_point pos, int radians)
 {
-	long double angle;
-	long double increase_angle = 0.01;
+	float angle;
+	float increase_angle = 0.01;
 	int new_x;
 	int new_y;
 

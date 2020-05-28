@@ -1,0 +1,6 @@
+*.o
+*.out
+test.c
+move_main.c
+old_main.c
+apagar.c

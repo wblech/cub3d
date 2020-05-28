@@ -6,7 +6,7 @@
 /*   By: wbertoni <wbertoni@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/25 11:40:41 by wbertoni          #+#    #+#             */
-/*   Updated: 2020/05/12 18:50:23 by wbertoni         ###   ########.fr       */
+/*   Updated: 2020/05/26 16:05:24 by wbertoni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,4 +91,30 @@ void ft_rect_filled(t_data *img, t_point start, t_point size)
 		y++;
 		i++;
 	}
+}
+
+void ft_rect_filled_borderless(t_data *img, t_point start, t_point size) //borderless
+{
+	int i;
+	int j;
+
+	j = 0;
+	i = 0;
+	while (i < size.x)
+	{
+		while (j < size.y)
+		{
+			my_mlx_pixel_put(img, start.x + i, start.y + j, size.color);
+			j++;
+		}
+		j = 0;
+		i++;
+	}
+	// while (i < size.y)
+	// {
+	// 	ft_line_dda(img, ft_create_point(start.x, start.y, size.color),
+	// 				ft_create_point(start.x + size.x, start.y, size.color));
+	// 	start.y++;
+	// 	i++;
+	// }
 }

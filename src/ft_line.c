@@ -6,7 +6,7 @@
 /*   By: wbertoni <wbertoni@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/25 11:28:21 by wbertoni          #+#    #+#             */
-/*   Updated: 2020/05/13 20:31:02 by wbertoni         ###   ########.fr       */
+/*   Updated: 2020/05/26 14:14:57 by wbertoni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,8 +31,8 @@
 void ft_line(t_data *img, t_point start, t_point end)
 {
 
-	int dx = abs(end.x - start.x), sx = start.x < end.x ? 1 : -1;
-	int dy = abs(end.y - start.y), sy = start.y < end.y ? 1 : -1;
+	float dx = fabsf(end.x - start.x), sx = start.x < end.x ? 1 : -1;
+	float dy = fabsf(end.y - start.y), sy = start.y < end.y ? 1 : -1;
 	int err = (dx > dy ? dx : -dy) / 2, e2;
 
 	for (;;)
@@ -112,37 +112,96 @@ void ft_line(t_data *img, t_point start, t_point end)
 ** Return: none
 */
 
+// void ft_line_dda(t_data *img, t_point start, t_point end)
+// {
+// 	int dx = end.x - start.x;
+// 	int dy = end.y - start.y;
+// 	int steps;
+// 	int k;
+// 	float xincrement;
+// 	float yincrement;
+// 	float x = start.x;
+// 	float y = start.y;
+
+// 	if (abs(dx) > abs(dy))
+// 		steps = abs(dx);
+// 	else
+// 		steps = abs(dy);
+
+// 	xincrement = abs(dx) / (float)steps;
+// 	yincrement = abs(dy) / (float)steps;
+// 	my_mlx_pixel_put(img, ROUND(x), ROUND(y), get_color(ft_create_point(ROUND(x), ROUND(y), 0), start, end));
+// 	for (k = 0; k < steps; k++)
+// 	{
+// 		if (start.x <= end.x)
+// 			x += xincrement;
+// 		else
+// 			x -= xincrement;
+// 		if (start.y <= end.y)
+// 			y += yincrement;
+// 		else
+// 			y -= yincrement;
+// 		// my_mlx_pixel_put(img, ROUND(x), ROUND(y), start.color);
+// 		my_mlx_pixel_put(img, ROUND(x), ROUND(y), get_color(ft_create_point(ROUND(x), ROUND(y), 0), start, end));
+// 	}
+// }
+// void ft_line_dda(t_data *img, t_point start, t_point end)
+// {
+// 	int dx = end.x - start.x;
+// 	int dy = end.y - start.y;
+// 	int steps;
+// 	int k;
+// 	float xincrement;
+// 	float yincrement;
+// 	float x = start.x;
+// 	float y = start.y;
+
+// 	if (abs(dx) > abs(dy))
+// 		steps = abs(dx);
+// 	else
+// 		steps = abs(dy);
+
+// 	xincrement = abs(dx) / (float)steps;
+// 	yincrement = abs(dy) / (float)steps;
+// 	my_mlx_pixel_put(img, ROUND(x), ROUND(y), get_color(ft_create_point(ROUND(x), ROUND(y), 0), start, end));
+// 	for (k = 0; k < steps; k++)
+// 	{
+// 		if (start.x <= end.x)
+// 			x += xincrement;
+// 		else
+// 			x -= xincrement;
+// 		if (start.y <= end.y)
+// 			y += yincrement;
+// 		else
+// 			y -= yincrement;
+// 		// my_mlx_pixel_put(img, ROUND(x), ROUND(y), start.color);
+// 		my_mlx_pixel_put(img, ROUND(x), ROUND(y), get_color(ft_create_point(ROUND(x), ROUND(y), 0), start, end));
+// 	}
+// }
+
 void ft_line_dda(t_data *img, t_point start, t_point end)
 {
-	int dx = end.x - start.x;
-	int dy = end.y - start.y;
-	int steps;
-	int k;
-	long double xincrement;
-	long double yincrement;
-	long double x = start.x;
-	long double y = start.y;
+	int delta_x;
+	int delta_y;
+	int step;
+	float x_increment;
+	float y_increment;
+	t_point current;
+	int i;
 
-	if (abs(dx) > abs(dy))
-		steps = abs(dx);
-	else
-		steps = abs(dy);
-
-	xincrement = abs(dx) / (long double)steps;
-	yincrement = abs(dy) / (long double)steps;
-	my_mlx_pixel_put(img, ROUND(x), ROUND(y), get_color(ft_create_point(ROUND(x), ROUND(y), 0), start, end));
-	for (k = 0; k < steps; k++)
+	i = 0;
+	delta_x = end.x - start.x;
+	delta_y = end.y - start.y;
+	step = abs(delta_x) >= abs(delta_y) ? abs(delta_x) : abs(delta_y);
+ 	x_increment = delta_x / (float)step;
+ 	y_increment = delta_y / (float)step;
+	current.x = start.x;
+	current.y = start.y;
+	while (i++ <= step)
 	{
-		if (start.x <= end.x)
-			x += xincrement;
-		else
-			x -= xincrement;
-		if (start.y <= end.y)
-			y += yincrement;
-		else
-			y -= yincrement;
-		// my_mlx_pixel_put(img, ROUND(x), ROUND(y), start.color);
-		my_mlx_pixel_put(img, ROUND(x), ROUND(y), get_color(ft_create_point(ROUND(x), ROUND(y), 0), start, end));
+		my_mlx_pixel_put(img, ROUND(current.x), ROUND(current.y), start.color);
+		current.x += x_increment;
+		current.y += y_increment;
 	}
 }
 
@@ -160,7 +219,8 @@ void ft_line_dda(t_data *img, t_point start, t_point end)
 ** Return: none
 */
 
-void ft_hline(t_data *img, t_point start, int size)
+	void
+	ft_hline(t_data *img, t_point start, int size)
 {
 	int i;
 
