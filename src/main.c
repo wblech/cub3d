@@ -6,7 +6,7 @@
 /*   By: wbertoni <wbertoni@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/09 12:40:19 by wbertoni          #+#    #+#             */
-/*   Updated: 2020/05/27 22:09:05 by wbertoni         ###   ########.fr       */
+/*   Updated: 2020/05/28 15:32:10 by wbertoni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,7 +109,10 @@ int get_texture_color (t_tex *texture, t_point pos)
 	return (b << 24 | g << 16 | r << 8 | a);
 }
 
-
+float ft_map(int x, int in_min, int in_max, int out_min, int out_max)
+{
+	return (x - in_min) * (out_max - out_min) / (in_max - in_min) + out_min;
+}
 
 void ft_draw_3d_map(t_vars *vars, t_data *img)
 {
@@ -129,19 +132,16 @@ void ft_draw_3d_map(t_vars *vars, t_data *img)
 		wall_height = (TILE_SIZE / perpDistance) * player_distance;
 		wall_top = (vars->win_height / 2) - (wall_height / 2);
 		wall_top = (wall_top < 0) ? 0 : wall_top;
-		wall_bottom = (wall_height > vars->win_height) ? vars->win_height : wall_height;
+		wall_bottom = (vars->win_height / 2) + (wall_height / 2);
+		// wall_bottom = (wall_height > vars->win_height) ? vars->win_height : wall_height;
+		wall_bottom = (wall_bottom > vars->win_height) ? vars->win_height : wall_bottom;
 		//topo
 		if (wall_top > 0)
 			ft_rect_filled_borderless(img, ft_create_point(i * WALL_STRIP_WIDTH, 0, 0xFFFf0000), ft_create_point(WALL_STRIP_WIDTH, wall_top, 0xFFFf0000));
-		//cor das paredes
-		// int tex_offset = (vars->texture->width
-		// * ((int)vars->rays[i]->wall_hit_x % TILE_SIZE)) / TILE_SIZE;
 		int color2;
 		int color = vars->rays[i]->was_wall_hit_vertical ? 0x00ff00 : 0x808080;
 		start = ft_create_point(i * WALL_STRIP_WIDTH, wall_top, color);
 		size = ft_create_point(WALL_STRIP_WIDTH, wall_bottom, color);
-		// int tex_offset = (vars->texture->width
-		// * ((int)vars->rays[i]->wall_hit_x % TILE_SIZE)) / TILE_SIZE;
 		int tex_offset = (int)vars->rays[i]->wall_hit_x % TILE_SIZE;
 		t_point pos;
 		pos.x = tex_offset;
@@ -150,35 +150,23 @@ void ft_draw_3d_map(t_vars *vars, t_data *img)
 		int j = 0;
 		int y = wall_top;
 
-		// printf("(wall_height / 2) - (vars->win_height / 2) = %f\n", (wall_height / 2) - (vars->win_height / 2));
-		// printf("(vars->win_height / 2) - (wall_height / 2) = %f\n", (vars->win_height / 2) - (wall_height / 2));
-
-		while (d < size.x)
+		while (d < WALL_STRIP_WIDTH)
 		{
-			while (j < size.y)
+			// while (j < size.y)
+			while (j < wall_bottom - wall_top)
 			{
-				// int teste = (TILE_SIZE * (wall_height)) / TILE_SIZE;
-				pos.y = (vars->texture->height * ((int)(vars->rays[i]->wall_hit_y + j) % (int)TILE_SIZE)) / TILE_SIZE;
-				// pos.y = (j / TILE_SIZE) * vars->texture->height;
-				// pos.y = ((float)j / (float)TILE_SIZE) * vars->texture->height;
-				// int distanceFromTop = y + (wall_height / 2) - (vars->win_height / 2);
-				// int textureOffsetY = distanceFromTop * ((float)vars->texture->height / wall_height);
-				// pos.y = textureOffsetY;
-				printf("(%f, %f)\n", pos.x, pos.y);
+				pos.y = (int)ft_map(start.y + j, wall_top, wall_bottom, 0, 63) % (int)TILE_SIZE;
+				// printf("%f\n", (float)vars->texture->height / wall_height);
+				// printf("(%f, %f)\n", pos.x, pos.y);
 				color2 = get_texture_color(vars->texture, pos);
-				// if (!vars->rays[i]->was_wall_hit_vertical)
-				// 	printf("(%f, %f) = %x\n", pos.x, pos.y, color2);
 				color2 = vars->rays[i]->was_wall_hit_vertical ? 0x00ff00 : color2;
 				my_mlx_pixel_put(img, start.x + d, start.y + j, color2);
 				y++;
-				// pos.y++;
 				j++;
 			}
-			// pos.y = 0;
 			j = 0;
 			d++;
 		}
-		// ft_rect_filled_borderless(img, start, size);
 		i++;
 	}
 }

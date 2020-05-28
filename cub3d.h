@@ -6,7 +6,7 @@
 /*   By: wbertoni <wbertoni@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/24 20:33:46 by wbertoni          #+#    #+#             */
-/*   Updated: 2020/05/27 09:42:43 by wbertoni         ###   ########.fr       */
+/*   Updated: 2020/05/28 15:07:04 by wbertoni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,6 +58,14 @@ typedef enum e_face
 	left,
 	right
 } t_face;
+
+typedef enum e_side
+{
+	north,
+	south,
+	west,
+	east
+} t_side;
 
 typedef struct s_data
 {
