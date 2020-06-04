@@ -6,7 +6,7 @@
 /*   By: wbertoni <wbertoni@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/26 16:22:37 by wbertoni          #+#    #+#             */
-/*   Updated: 2020/05/26 17:16:40 by wbertoni         ###   ########.fr       */
+/*   Updated: 2020/06/01 17:12:57 by wbertoni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,7 +85,9 @@ static t_ray *ft_create_ray(t_vars *vars, t_point hint, t_point vint)
 	float distv;
 
 	start = ft_create_point(vars->player->x, vars->player->y, 0);
-	ray = malloc(sizeof(t_ray));
+	ray = (t_ray *)malloc(sizeof(t_ray));
+	if (!ray)
+		return (NULL);
 	disth = hint.color ? ft_distance_between_points(start, hint) : INT_MAX;
 	distv = vint.color ? ft_distance_between_points(start, vint) : INT_MAX;
 	ray->wall_hit_x = (disth < distv) ? hint.x : vint.x;
@@ -95,7 +97,7 @@ static t_ray *ft_create_ray(t_vars *vars, t_point hint, t_point vint)
 	return (ray);
 }
 
-void ft_raycast(t_vars *vars)
+int ft_raycast(t_vars *vars)
 {
 	float ray_angle;
 	float num_ray;
@@ -105,12 +107,16 @@ void ft_raycast(t_vars *vars)
 	i = 0;
 	num_ray = vars->win_width / WALL_STRIP_WIDTH;
 	ray_angle = vars->player->rotation_angle - (ft_degtorad(FOV_ANGLE) / 2);
-	rays = malloc(num_ray * sizeof(t_ray));
+	rays = (t_ray **)malloc(num_ray * sizeof(t_ray));
+	if (!rays)
+		return (0);
 	while (i < num_ray)
 	{
 		ray_angle = ft_normalize_angle(ray_angle);
 		rays[i] = ft_create_ray(vars, ft_horz_intercept(vars, ray_angle),
-								ft_vert_intercept(vars, ray_angle));
+		ft_vert_intercept(vars, ray_angle));
+		if (!rays[i])
+			return (0);
 		rays[i]->ray_angle = ray_angle;
 		ray_angle += ft_degtorad(FOV_ANGLE) / num_ray;
 		i++;
@@ -118,4 +124,5 @@ void ft_raycast(t_vars *vars)
 	if (vars->rays != NULL)
 		ft_del_rays(vars);
 	vars->rays = rays;
+	return (1);
 }

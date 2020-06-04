@@ -6,7 +6,7 @@
 /*   By: wbertoni <wbertoni@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/09 12:40:19 by wbertoni          #+#    #+#             */
-/*   Updated: 2020/05/28 15:32:10 by wbertoni         ###   ########.fr       */
+/*   Updated: 2020/06/03 16:32:22 by wbertoni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,29 +19,40 @@ t_map *ft_fake_map()
 	t_map *map_clone;
 	int i_row;
 	int i_col;
-	int map[11][15] = {
-		{1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1},
-		{1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 1},
-		{1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 1},
-		{1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 1},
-		{1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 1},
-		{1, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 0, 1},
-		{1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1},
-		{1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1},
-		{1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 0, 1},
-		{1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1},
-		{1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1}};
-
+	// int map[11][15] = {
+	// 	{1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1},
+	// 	{1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 1},
+	// 	{1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 1},
+	// 	{1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 1},
+	// 	{1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 1},
+	// 	{1, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 0, 1},
+	// 	{1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1},
+	// 	{1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1},
+	// 	{1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 0, 1},
+	// 	{1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1},
+	// 	{1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1}};
+	char map[11][15] = {
+		{'1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1'},
+		{'1', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '1', '0', '1'},
+		{'1', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '1', '0', '1'},
+		{'1', '1', '1', '1', '0', '0', '0', '0', '0', '0', '0', '0', '1', '0', '1'},
+		{'1', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '1', '0', '1'},
+		{'1', '0', '0', '0', '0', '0', '0', '0', '1', '1', '1', '1', '1', '0', '1'},
+		{'1', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '1'},
+		{'1', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '1'},
+		{'1', '0', '0', '0', '0', '0', '0', '0', '0', '0', '1', '1', '1', '0', '1'},
+		{'1', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '1'},
+		{'1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1'}};
 	i_row = 0;
 	i_col = 0;
 	map_clone = malloc(sizeof(t_map));
 	map_clone->num_col = 15;
 	map_clone->num_row = 11;
-	map_clone->map = malloc(map_clone->num_row * sizeof(int *));
+	map_clone->map = malloc(map_clone->num_row * sizeof(char *));
 
 	while (i_row < map_clone->num_row)
 	{
-		map_clone->map[i_row] = (int *)malloc(map_clone->num_col * sizeof(int));
+		map_clone->map[i_row] = (char *)malloc(map_clone->num_col * sizeof(char));
 		while (i_col < map_clone->num_col)
 		{
 			map_clone->map[i_row][i_col] = map[i_row][i_col];
@@ -53,148 +64,283 @@ t_map *ft_fake_map()
 	return (map_clone);
 }
 
-// void ft_raycast_render(t_vars *vars, t_data *img)
-void ft_draw_2d_map(t_vars *vars, t_data *img)
+void ft_del_info(char **info)
 {
 	int i;
-	t_point central;
-	t_point end;
 
 	i = 0;
-	central = ft_create_point(MINIMAP_SCALE_FACTOR * vars->player->x,
-							  MINIMAP_SCALE_FACTOR * vars->player->y, 0x00ff0000);
-	ft_create_2d_map(img, vars->map);
-	ft_circle_filled(img, central, vars->player->radius);
-	while (i < (vars->win_width / WALL_STRIP_WIDTH))
+	while (info[i] != '\0')
 	{
-		end = ft_create_point(MINIMAP_SCALE_FACTOR * vars->rays[i]->wall_hit_x,
-							  MINIMAP_SCALE_FACTOR * vars->rays[i]->wall_hit_y,
-							  0x00ff0000);
-		ft_line_dda(img, central, end);
+		free(info[i]);
+		i++;
+	}
+	free(info);
+}
+
+int	ft_get_ceiling_floor_color(t_file *file, char **info)
+{
+	char **rgb;
+	int size;
+
+	size = 0;
+	while (info[size] != '\0')
+		size++;
+	if (size < 2)
+	{
+		printf("Error:\nNeed to inform a color to the texture\n");
+		return (0);
+	}
+	rgb = ft_split(info[1], ',');
+	if (ft_strncmp("F", info[0], 3) == 0)
+		file->floor = ft_atoi(rgb[0]) << 16 | ft_atoi(rgb[1]) << 8
+		| ft_atoi(rgb[2]);
+	else if (ft_strncmp("C", info[0], 3) == 0)
+		file->ceiling = ft_atoi(rgb[0]) << 16 | ft_atoi(rgb[1]) << 8
+		| ft_atoi(rgb[2]);
+	ft_del_info(rgb);
+	return (1);
+}
+
+int ft_get_texture_path(t_vars *vars, t_file *file, char **info)
+{
+	int size;
+
+	size = 0;
+	while (info[size] != '\0')
+		size++;
+	if (size < 2)
+	{
+		printf("Error:\nNeed to inform path to the texture\n");
+		return (0);
+	}
+	if ((ft_strncmp("NO", info[0], 3) == 0))
+		file->north = ft_create_texture(vars->mlx, info[1]);
+	else if ((ft_strncmp("SO", info[0], 3) == 0))
+		file->south = ft_create_texture(vars->mlx, info[1]);
+	else if ((ft_strncmp("WE", info[0], 3) == 0))
+		file->west = ft_create_texture(vars->mlx, info[1]);
+	else if ((ft_strncmp("EA", info[0], 3) == 0))
+		file->east = ft_create_texture(vars->mlx, info[1]);
+	else if ((ft_strncmp("S", info[0], 3) == 0))
+		file->sprite = ft_create_texture(vars->mlx, info[1]);
+	printf("depois\n");
+	return (1);
+}
+
+int ft_get_resolution(t_file *file, char **info)
+{
+	int size;
+
+	size = 0;
+	while (info[size] != '\0')
+		size++;
+	if (size < 3)
+	{
+		printf("Error:\nNeed 2 arguments for resolution in cub file\n");
+		return (0);
+	}
+	if (!ft_isdigit(info[1][0]) || !ft_isdigit(info[2][0]))
+	{
+		printf("Error:\nResolution width and height must be positive numbers\n");
+		return (0);
+	}
+	file->width = ft_atoi(info[1]);
+	file->height = ft_atoi(info[2]);
+	ft_del_info(info);
+	return (1);
+}
+
+void ft_cub_value(t_vars *vars, t_file *file, char *line)
+{
+	int i;
+	char **info;
+	// t_map *map;
+
+	i = 0;
+
+	// while (ft_isspace(line[i]))
+	// 	i++;
+	// if (ft_isdigit(line[i]))
+	// 	ft_get_map(file, line, map);
+	info = ft_split(line, ' ');
+	if (ft_strncmp("R", info[0], 3) == 0)
+		ft_get_resolution(file, info);
+	else if ((ft_strncmp("NO", info[0], 3) == 0)
+	|| (ft_strncmp("SO", info[0], 3) == 0)
+	|| (ft_strncmp("WE", info[0], 3) == 0)
+	|| (ft_strncmp("EA", info[0], 3) == 0)
+	|| (ft_strncmp("S", info[0], 3) == 0))
+		ft_get_texture_path(vars, file, info);
+	else if ((ft_strncmp("F", info[0], 3) == 0)
+	|| (ft_strncmp("C", info[0], 3) == 0))
+		ft_get_ceiling_floor_color(file, info);
+}
+// se espaço lê o próximo até fim da linha;
+// se R pega 2 números separados por espaço(função libft)
+// se NO, SO, WE, EA, S salva path na struct
+// Se F ou C transforma em int e salva
+// Se 0/2/N/S/W/E erro dizendo que não começou com 1
+// Senão inica leitura de mapa,se tiver linha vazia para.
+// map[i] - pega tamanho da linha
+
+// int ft_check_map()
+
+void *ft_spacelloc(size_t count, size_t size)
+{
+	char *ptr;
+
+	ptr = ft_calloc(count, size);
+	if (ptr == NULL)
+		return (NULL);
+	ft_memset(ptr, ' ', count * size);
+	return (ptr);
+}
+
+void **ft_malloc_map(int row, int col)
+{
+	char **ptr;
+	int i;
+
+	i = 0;
+	ptr = (char *)malloc(row * sizeof(char *));
+	while (i < row)
+	{
+		ptr[i] = (char *)ft_spacelloc(col + 1, sizeof(char));
+		i++;
+	}
+	return (ptr);
+}
+
+void ft_del_map(char **map, int num_row)
+{
+	int i;
+
+	i = 0;
+	while (i < num_row)
+	{
+		free(map[i]);
 		i++;
 	}
 }
 
-
-
-t_tex *ft_get_texture(void *mlx_ptr, char *path)
+int ft_get_map(t_file *file, char *line)
 {
-	t_tex *texture;
-	t_data *img;
-
-	texture = (t_tex *)malloc(sizeof(t_tex));
-	img = (t_data *)malloc(sizeof(t_data));
-	img->img = mlx_xpm_file_to_image(mlx_ptr, path, &texture->width,
-	&texture->height);
-	img->addr = mlx_get_data_addr(img->img, &img->bits_per_pixel,
-	&img->line_length, &img->endian);
-	texture->img = img;
-	return (texture);
-}
-
-int get_texture_color (t_tex *texture, t_point pos)
-{
-	int offset;
-	int a;
-	int r;
-	int g;
-	int b;
-
-	offset = pos.y * texture->img->line_length
-	+ pos.x * (texture->img->bits_per_pixel / 8);
-	a = texture->img->addr[offset + 0];
-	r = texture->img->addr[offset + 1];
-	g = texture->img->addr[offset + 2];
-	b = texture->img->addr[offset + 3];
-	return (b << 24 | g << 16 | r << 8 | a);
-}
-
-float ft_map(int x, int in_min, int in_max, int out_min, int out_max)
-{
-	return (x - in_min) * (out_max - out_min) / (in_max - in_min) + out_min;
-}
-
-void ft_draw_3d_map(t_vars *vars, t_data *img)
-{
-	float player_distance;
-	float wall_height;
-	t_point start;
-	t_point size;
-	float wall_top;
-	float wall_bottom;
+	int size;
 	int i;
+	int j;
+	char **tmp;
 
+	j = 0;
 	i = 0;
-	player_distance = (vars->win_width / 2) / tan(ft_degtorad(FOV_ANGLE / 2));
-	while (i < (vars->win_width / WALL_STRIP_WIDTH))
+	size = ft_strlen(line);
+	if (file->map->num_row == 0)
 	{
-		float perpDistance = vars->rays[i]->distance * cos(vars->rays[i]->ray_angle - vars->player->rotation_angle);
-		wall_height = (TILE_SIZE / perpDistance) * player_distance;
-		wall_top = (vars->win_height / 2) - (wall_height / 2);
-		wall_top = (wall_top < 0) ? 0 : wall_top;
-		wall_bottom = (vars->win_height / 2) + (wall_height / 2);
-		// wall_bottom = (wall_height > vars->win_height) ? vars->win_height : wall_height;
-		wall_bottom = (wall_bottom > vars->win_height) ? vars->win_height : wall_bottom;
-		//topo
-		if (wall_top > 0)
-			ft_rect_filled_borderless(img, ft_create_point(i * WALL_STRIP_WIDTH, 0, 0xFFFf0000), ft_create_point(WALL_STRIP_WIDTH, wall_top, 0xFFFf0000));
-		int color2;
-		int color = vars->rays[i]->was_wall_hit_vertical ? 0x00ff00 : 0x808080;
-		start = ft_create_point(i * WALL_STRIP_WIDTH, wall_top, color);
-		size = ft_create_point(WALL_STRIP_WIDTH, wall_bottom, color);
-		int tex_offset = (int)vars->rays[i]->wall_hit_x % TILE_SIZE;
-		t_point pos;
-		pos.x = tex_offset;
-		pos.y = 0;
-		int d = 0;
-		int j = 0;
-		int y = wall_top;
-
-		while (d < WALL_STRIP_WIDTH)
+		file->map->num_row++;
+		file->map->num_col = size;
+		file->map->map = ft_malloc_map(file->map->num_row, file->map->num_col);
+		while(j < size)
 		{
-			// while (j < size.y)
-			while (j < wall_bottom - wall_top)
+			file->map->map[0][j] = line[j];
+			j++;
+		}
+	} else
+	{
+		tmp = file->map->map;
+		file->map->num_row++;
+
+		if (size > file->map->num_col)
+			file->map->num_col = size;
+
+		file->map->map = ft_malloc_map(file->map->num_row, file->map->num_col);
+
+		while (i < file->map->num_row)
+		{
+			while (j < file->map->num_col)
 			{
-				pos.y = (int)ft_map(start.y + j, wall_top, wall_bottom, 0, 63) % (int)TILE_SIZE;
-				// printf("%f\n", (float)vars->texture->height / wall_height);
-				// printf("(%f, %f)\n", pos.x, pos.y);
-				color2 = get_texture_color(vars->texture, pos);
-				color2 = vars->rays[i]->was_wall_hit_vertical ? 0x00ff00 : color2;
-				my_mlx_pixel_put(img, start.x + d, start.y + j, color2);
-				y++;
-				j++;
+				if (tmp[i][j] != '\0')
+					file->map->map[i][j] = tmp[i][j];
+				else
+					break;
+			j++;
 			}
 			j = 0;
-			d++;
+			i++;
 		}
-		i++;
+		ft_del_map(file->map->map, file->map->num_row);
+
 	}
 }
 
-void ft_setup(t_vars *vars)
+t_file *ft_read_cubfile(t_vars *vars, char *cubfile)
+{
+	int fopen;
+	char **line;
+	int ret;
+	t_file *file;
+
+	file = (t_file *)malloc(sizeof(t_file));
+	line = (char **)malloc(sizeof(char));
+	file->map = (t_map *)malloc(sizeof(t_map));
+	file->map->num_col = 0;
+	file->map->num_row = 0;
+	fopen = open(cubfile, O_RDONLY);
+	while ((ret = get_next_line(fopen, line)))
+	{
+		printf("%s\n", *line);
+		ft_cub_value(vars, file, *line);
+	}
+	// printf("width: %i\n", file->width);
+	// printf("height: %i\n", file->height);
+	// printf("North: %s\n", file->north);
+	// printf("South: %s\n", file->south);
+	// printf("West: %s\n", file->west);
+	// printf("East: %s\n", file->east);
+	// printf("Sprite: %s\n", file->sprite);
+	// printf("Ceiling: %x\n", file->ceiling);
+	// printf("Floor: %x\n", file->floor);
+	free(*line);
+	free(line);
+	return (file);
+}
+
+int ft_setup(t_vars *vars, char *path)
 {
 	t_map *map;
 
 	g_minimap = TRUE;
 	map = ft_fake_map();
-	ft_create_vars(vars, map);
-	ft_raycast(vars);
+	if (!ft_create_vars(vars, map, path))
+		return (0);
+	if (!ft_raycast(vars))
+		return (0);
 	ft_draw_2d_map(vars, vars->img);
 	ft_draw_3d_map(vars, vars->img);
 	mlx_put_image_to_window(vars->mlx, vars->win, vars->img->img, 0, 0);
+	return (1);
 }
 
-int main(void)
+int main(int argc, char **argv)
 {
 	t_vars vars;
 	t_map *map;
 
+	// if (argc < 2)
+	// {
+	// 	printf("Error:\nMap file not found");
+	// 	return(1);
+	// }
+	(void)argc;
 	map = ft_fake_map();
-	ft_setup(&vars);
-	mlx_hook(vars.win, 2, 1L << 0, ft_update_press, &vars);
-	mlx_hook(vars.win, 3, 1L << 1, ft_update_release, &vars);
-	mlx_hook(vars.win, 17, 1L << 17, ft_close, &vars);
-	mlx_expose_hook(vars.win, ft_render, &vars);
+	if (!ft_setup(&vars, argv[1]))
+		exit(1);
+	if (!mlx_hook(vars.win, 2, 1L << 0, ft_update_press, &vars))
+		exit(1);
+	if (!mlx_hook(vars.win, 3, 1L << 1, ft_update_release, &vars))
+		exit(1);
+	if (!mlx_hook(vars.win, 17, 1L << 17, ft_close, &vars))
+		exit(1);
+	if (!mlx_expose_hook(vars.win, ft_render, &vars))
+		exit(1);
 	mlx_loop(vars.mlx);
 	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: wbertoni <wbertoni@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/13 12:12:31 by wbertoni          #+#    #+#             */
-/*   Updated: 2020/05/20 16:59:36 by wbertoni         ###   ########.fr       */
+/*   Updated: 2020/06/03 15:41:23 by wbertoni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ void ft_create_2d_map(t_data *img, t_map *map)
 									MINIMAP_SCALE_FACTOR * (i_row * TILE_SIZE), 0x00000000);
 			size = ft_create_point(MINIMAP_SCALE_FACTOR * TILE_SIZE,
 								   MINIMAP_SCALE_FACTOR * TILE_SIZE,
-								   (map->map[i_row][i_col]) ? 0x00000000 : 0x00ffffff);
+								   (map->map[i_row][i_col] == '1') ? 0x00000000 : 0x00ffffff);
 			ft_rect_filled_borderless(img, start, size);
 			i_col++;
 		}
@@ -60,7 +60,7 @@ int ft_has_wall(t_vars *vars, int x, int y)
 		return (1);
 	index_x = floor(x / TILE_SIZE);
 	index_y = floor(y / TILE_SIZE);
-	return (vars->map->map[index_y][index_x] != 0 ? 1 : 0);
+	return (vars->map->map[index_y][index_x] != '0' ? 1 : 0);
 }
 
 void ft_check_collision(t_vars *vars)

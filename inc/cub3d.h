@@ -6,19 +6,21 @@
 /*   By: wbertoni <wbertoni@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/24 20:33:46 by wbertoni          #+#    #+#             */
-/*   Updated: 2020/05/28 15:07:04 by wbertoni         ###   ########.fr       */
+/*   Updated: 2020/06/03 15:48:55 by wbertoni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef CUB3D_H
 #define CUB3D_H
 
-#include <unistd.h>
-#include <limits.h>
+#include "get_next_line.h"
+#include "../libft/libft.h"
+// #include <unistd.h>
+// #include <limits.h>
 #include <math.h>
 #include "mlx.h"
 #include <stdio.h>	// verificar necessidade
-#include <stdlib.h> // precisa recriar a funcao abs
+// #include <stdlib.h> // precisa recriar a funcao abs
 
 #define ROUND(a) ((int)(a + 0.5)) //proibido
 #ifndef TILE_SIZE
@@ -87,7 +89,7 @@ typedef struct s_map // criar função que le e cria a estrutura
 {
 	int num_row;
 	int num_col;
-	int **map;
+	char **map;
 } t_map;
 
 typedef struct s_player
@@ -108,6 +110,8 @@ typedef struct s_ray
 	float wall_hit_y;
 	float distance;
 	float ray_angle;
+	float wall_top;
+	float wall_bottom;
 	int was_wall_hit_vertical;
 } t_ray;
 
@@ -117,6 +121,21 @@ typedef struct s_tex
 	int width;
 	int height;
 } t_tex;
+
+typedef struct s_file
+{
+	int width;
+	int height;
+	t_tex *north;
+	t_tex *south;
+	t_tex *west;
+	t_tex *east;
+	t_tex *sprite;
+	int floor;
+	int ceiling;
+	t_map *map;
+} t_file;
+
 typedef struct s_vars
 {
 	void *mlx;
@@ -128,7 +147,10 @@ typedef struct s_vars
 	t_player *player;
 	t_ray **rays;
 	t_tex *texture;
+	t_file *file;
 } t_vars;
+
+
 
 /*Utils*/
 void my_mlx_pixel_put(t_data *data, int x, int y, int color);
@@ -169,7 +191,7 @@ int ft_close(t_vars *vars);
 int ft_update_press(int keycode, t_vars *vars);
 int ft_update_release(int keycode, t_vars *vars);
 /* ft_vars.c */
-void ft_create_vars(t_vars *vars, t_map *map);
+int ft_create_vars(t_vars *vars, t_map *map, char *path);
 void ft_del_vars(t_vars *vars);
 /* ft_image.c */
 t_data *ft_create_image(void *mlx_ptr, int x, int y);
@@ -183,7 +205,7 @@ void ft_check_collision(t_vars *vars);
 int ft_render(t_vars *vars);
 // void ft_create_rays(t_vars *vars);
 // void ft_raycast_render(t_vars *vars, t_data *img);
-void ft_raycast(t_vars *vars);
+int ft_raycast(t_vars *vars);
 void ft_draw_2d_map(t_vars *vars, t_data *img);
 int is_end_window(t_vars *vars, float x, float y);
 void ft_draw_3d_map(t_vars *vars, t_data *img);
@@ -191,6 +213,8 @@ float ft_normalize_angle(float angle);
 int ft_calc_facing(float ray_angle, t_face face);
 float ft_distance_between_points(t_point start, t_point end);
 void ft_del_rays(t_vars *vars);
-t_tex *ft_get_texture(void *mlx_ptr, char *path);
+t_tex *ft_create_texture(void *mlx_ptr, char *path);
+int ft_get_texture_color(t_vars *vars, float wall_height, int index, int y);
+t_file *ft_read_cubfile(t_vars *vars, char *cubfile);
 
 #endif

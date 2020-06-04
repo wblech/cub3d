@@ -6,7 +6,7 @@
 /*   By: wbertoni <wbertoni@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/13 12:02:51 by wbertoni          #+#    #+#             */
-/*   Updated: 2020/05/27 10:29:49 by wbertoni         ###   ########.fr       */
+/*   Updated: 2020/06/01 17:20:17 by wbertoni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,17 +27,18 @@ int ft_render(t_vars *vars)
 
 	new_img = ft_create_image(vars->mlx, vars->win_width, vars->win_width);
 	if (!new_img)
-		return (1);
+		return (0);
 	vars->player->rotation_angle += vars->player->turn_direction * vars->player->rotatio_speed;
 	ft_check_collision(vars);
 	center = ft_create_point(vars->player->x, vars->player->y, 0x00ff0000);
-	ft_raycast(vars);
+	if (!ft_raycast(vars))
+		return (0);
 	ft_draw_3d_map(vars, new_img);
 	if (g_minimap)
 		ft_draw_2d_map(vars, new_img);
 	mlx_put_image_to_window(vars->mlx, vars->win, new_img->img, 0, 0);
 	ft_destroy_free_set_img(vars, new_img);
-	return (0);
+	return (1);
 }
 
 int ft_close(t_vars *vars)

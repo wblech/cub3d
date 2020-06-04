@@ -6,7 +6,7 @@
 /*   By: wbertoni <wbertoni@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/11 09:30:47 by wbertoni          #+#    #+#             */
-/*   Updated: 2020/05/20 16:49:13 by wbertoni         ###   ########.fr       */
+/*   Updated: 2020/06/01 16:41:23 by wbertoni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,9 @@ t_player *ft_create_player(t_vars *vars, char cardinal, float speed)
 {
 	t_player *pl;
 
-	pl = malloc(sizeof(t_player));
+	pl = (t_player *)malloc(sizeof(t_player));
+	if (!pl)
+		return (NULL);
 	pl->x = vars->win_width / 2;
 	pl->y = vars->win_height / 2;
 	pl->radius = 3;
