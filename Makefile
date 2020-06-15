@@ -21,6 +21,14 @@ SRCS = 	$(DIR_SRC)/gnl/get_next_line.c \
 		$(DIR_SRC)/ft_raycast.c \
 		$(DIR_SRC)/ft_texture.c \
 		$(DIR_SRC)/ft_draw_2d_3d_map.c \
+		$(DIR_SRC)/ft_check_map_cubfile_utils.c \
+		$(DIR_SRC)/ft_check_map_cubfile.c \
+		$(DIR_SRC)/ft_get_map_cubfile.c \
+		$(DIR_SRC)/ft_malloc_map.c \
+		$(DIR_SRC)/ft_print_error.c \
+		$(DIR_SRC)/ft_get_info_value.c \
+		$(DIR_SRC)/ft_cubfile.c \
+		$(DIR_SRC)/ft_cubfile_utils.c \
 		$(DIR_SRC)/main.c
 
 NAME = main

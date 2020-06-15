@@ -6,7 +6,7 @@
 /*   By: wbertoni <wbertoni@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/11 09:30:47 by wbertoni          #+#    #+#             */
-/*   Updated: 2020/06/01 16:41:23 by wbertoni         ###   ########.fr       */
+/*   Updated: 2020/06/13 23:05:43 by wbertoni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,8 +19,10 @@ t_player *ft_create_player(t_vars *vars, char cardinal, float speed)
 	pl = (t_player *)malloc(sizeof(t_player));
 	if (!pl)
 		return (NULL);
-	pl->x = vars->win_width / 2;
-	pl->y = vars->win_height / 2;
+	// pl->x = vars->map->initial_pl_x;
+	// pl->y = vars->map->initial_pl_y;
+	pl->x = vars->map->initial_pl_x;
+	pl->y = vars->map->initial_pl_y;
 	pl->radius = 3;
 	if (cardinal == 'N')
 		pl->rotation_angle = NORTH;

@@ -6,7 +6,7 @@
 /*   By: wbertoni <wbertoni@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/26 16:22:37 by wbertoni          #+#    #+#             */
-/*   Updated: 2020/06/01 17:12:57 by wbertoni         ###   ########.fr       */
+/*   Updated: 2020/06/08 12:38:01 by wbertoni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,8 +65,8 @@ static t_point ft_vert_intercept(t_vars *vars, float ray_angle)
 
 	intercept.x = floor(vars->player->x / TILE_SIZE) * TILE_SIZE;
 	intercept.x += ft_calc_facing(ray_angle, right) ? TILE_SIZE : 0;
-
 	intercept.y = vars->player->y + (intercept.x - vars->player->x) * tan(ray_angle);
+
 	step.x = TILE_SIZE;
 	step.x *= ft_calc_facing(ray_angle, left) ? -1 : 1;
 

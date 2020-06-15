@@ -6,7 +6,7 @@
 /*   By: wbertoni <wbertoni@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/24 20:33:46 by wbertoni          #+#    #+#             */
-/*   Updated: 2020/06/03 15:48:55 by wbertoni         ###   ########.fr       */
+/*   Updated: 2020/06/15 00:32:55 by wbertoni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,8 +19,10 @@
 // #include <limits.h>
 #include <math.h>
 #include "mlx.h"
-#include <stdio.h>	// verificar necessidade
+#include <stdio.h> // verificar necessidade
 // #include <stdlib.h> // precisa recriar a funcao abs
+#include <string.h>
+#include <errno.h>
 
 #define ROUND(a) ((int)(a + 0.5)) //proibido
 #ifndef TILE_SIZE
@@ -52,6 +54,28 @@
 #define MINIMAP_SCALE_FACTOR 0.2
 
 int g_minimap;
+// int TILE_SIZE;
+
+typedef enum e_error
+{
+	noerror,
+	eallow,
+	enull,
+	ewall,
+	eempty,
+	erespos,
+	eresarg,
+	epathtex,
+	ecolortex,
+	ergbsize,
+	enores,
+	enotexture,
+	enocolor,
+	enomap,
+	eplayer,
+} t_error;
+
+t_error g_error;
 
 typedef enum e_face
 {
@@ -89,6 +113,9 @@ typedef struct s_map // criar função que le e cria a estrutura
 {
 	int num_row;
 	int num_col;
+	char initial_pl_cardinal;
+	int initial_pl_x;
+	int initial_pl_y;
 	char **map;
 } t_map;
 
@@ -150,8 +177,6 @@ typedef struct s_vars
 	t_file *file;
 } t_vars;
 
-
-
 /*Utils*/
 void my_mlx_pixel_put(t_data *data, int x, int y, int color);
 t_point ft_create_point(float x, float y, int color);
@@ -198,7 +223,7 @@ t_data *ft_create_image(void *mlx_ptr, int x, int y);
 void ft_destroy_free_set_img(t_vars *vars, t_data *new_img);
 /* ft_map.c */
 void ft_create_2d_map(t_data *img, t_map *map);
-void ft_free_map(t_map *map);
+void ft_free_map(char **map);
 int ft_has_wall(t_vars *vars, int x, int y);
 void ft_check_collision(t_vars *vars);
 
@@ -215,6 +240,20 @@ float ft_distance_between_points(t_point start, t_point end);
 void ft_del_rays(t_vars *vars);
 t_tex *ft_create_texture(void *mlx_ptr, char *path);
 int ft_get_texture_color(t_vars *vars, float wall_height, int index, int y);
-t_file *ft_read_cubfile(t_vars *vars, char *cubfile);
+char **ft_malloc_map(int row, int col);
+int ft_is_wall_or_space(int c);
+void ft_print_error(t_error error);
+t_file *ft_cubfile(t_vars *vars, char *cubfile);
+int ft_check_map_cubfile_has_empty_line(char **line);
+t_error ft_check_map_cubfile(t_map *map);
+t_error ft_get_map_cubfile(t_file *file, char *line);
+t_error ft_get_info_value(t_vars *vars, t_file *file, char **info);
+t_file *ft_cubfile(t_vars *vars, char *cubfile);
+int ft_cubfile_check_and_get_function(t_file *file);
+t_error ft_get_cubfile_value(t_vars *vars, t_file *file, char *line);
+t_error ft_malloc_file_map(t_file *file);
+
+
+
 
 #endif

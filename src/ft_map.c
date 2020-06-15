@@ -6,7 +6,7 @@
 /*   By: wbertoni <wbertoni@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/13 12:12:31 by wbertoni          #+#    #+#             */
-/*   Updated: 2020/06/03 15:41:23 by wbertoni         ###   ########.fr       */
+/*   Updated: 2020/06/09 18:21:42 by wbertoni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,14 +38,14 @@ void ft_create_2d_map(t_data *img, t_map *map)
 	}
 }
 
-void ft_free_map(t_map *map)
+void ft_free_map(char **map)
 {
 	int i_row;
 
 	i_row = 0;
-	while (i_row < map->num_row)
+	while (map[i_row] != '\0')
 	{
-		free(map->map[i_row]);
+		free(map[i_row]);
 		i_row++;
 	}
 	free(map);
@@ -81,7 +81,8 @@ void ft_check_collision(t_vars *vars)
 
 int is_end_window(t_vars *vars, float x, float y)
 {
-	if (x <= 0 || x >= vars->win_width || y >= vars->win_height || y <= 0)
+	if (x <= 0 || x >= vars->map->num_col * TILE_SIZE || y
+	>= vars->map->num_row * TILE_SIZE || y <= 0)
 	{
 		return (1);
 	}

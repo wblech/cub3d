@@ -6,7 +6,7 @@
 /*   By: wbertoni <wbertoni@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/24 20:42:59 by wbertoni          #+#    #+#             */
-/*   Updated: 2020/05/26 16:26:11 by wbertoni         ###   ########.fr       */
+/*   Updated: 2020/06/10 12:20:22 by wbertoni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,5 +65,6 @@ int ft_calc_facing(float ray_angle, t_face face)
 
 float ft_distance_between_points(t_point start, t_point end)
 {
-	return (sqrt(((end.y - start.y) * (end.y - start.y)) + ((end.x - start.x) * (end.x - start.x))));
+	return (sqrt(((end.y - start.y) * (end.y - start.y))
+	+ ((end.x - start.x) * (end.x - start.x))));
 }

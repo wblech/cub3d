@@ -6,7 +6,7 @@
 /*   By: wbertoni <wbertoni@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/13 12:07:34 by wbertoni          #+#    #+#             */
-/*   Updated: 2020/06/03 15:48:41 by wbertoni         ###   ########.fr       */
+/*   Updated: 2020/06/15 00:12:11 by wbertoni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,17 +14,26 @@
 
 int ft_create_vars(t_vars *vars, t_map *map, char *path)
 {
-	vars->win_width = TILE_SIZE * map->num_col;
-	vars->win_height = TILE_SIZE * map->num_row;
+	(void)map;
 	vars->mlx = mlx_init();
+	if (!vars->mlx)
+		return (0);
+	vars->file = ft_cubfile(vars, path);
+	if (!vars->file)
+		return (0);
+	vars->map = vars->file->map;
+	vars->map->num_row = vars->file->map->num_row;
+	vars->map->num_col = vars->file->map->num_col;
+	vars->win_width = vars->file->width;
+	vars->win_height = vars->file->height;
 	vars->win = mlx_new_window(vars->mlx, vars->win_width, vars->win_height, "Map");
-	vars->map = map;
+	if (!vars->win)
+		return (0);
 	vars->img = ft_create_image(vars->mlx, vars->win_width, vars->win_height);
-	vars->player = ft_create_player(vars, 'S', 5.0);
+	vars->player = ft_create_player(vars, vars->map->initial_pl_cardinal, 5.0);
 	vars->rays = NULL;
-	vars->file = ft_read_cubfile(vars, path);
 	vars->texture = ft_create_texture(vars->mlx, "./img/eagle.xpm");
-	if (!vars->mlx || !vars->win || !vars->img || !vars->player)
+	if (!vars->img || !vars->player)
 		return (0);
 	return (1);
 }
@@ -46,7 +55,7 @@ void ft_del_rays(t_vars *vars)
 
 void ft_del_vars(t_vars *vars)
 {
-	ft_free_map(vars->map);
+	ft_free_map(vars->map->map);
 	mlx_destroy_image(vars->mlx, vars->img->img);
 	free(vars->img);
 	free(vars->player);
