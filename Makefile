@@ -19,20 +19,20 @@ SRCS = 	$(DIR_SRC)/cubfile_reader/gnl/get_next_line.c \
 NAME = cub3D
 OBJ = $(patsubst $(DIR_SRC)/%.c, $(DIR_OBJ)/%.o, $(SRCS))
 CC = clang
-CFLAGS = -Wall -Werror -Wextra
+CFLAGS = -Wall -Werror -Wextra -g -fsanitize=address
 LFLAGS = -lmlx -lm -lX11 -lXext -lbsd -lft
 AR = ar -rc
 RM = rm -f
 LIBFT = $(DIR_LIBFT)/libft.a
 
 $(NAME):	$(OBJ) $(LIBFT)
-			$(CC) $(CFLAGS) $(OBJ) -I$(DIR_INC) -I$(DIR_MLX) -L$(DIR_MLX) -L$(DIR_LIBFT) $(LFLAGS) -fsanitize=address -o $@ -g
+			$(CC) $(CFLAGS) $(OBJ) -I$(DIR_INC) -I$(DIR_MLX) -L$(DIR_MLX) -L$(DIR_LIBFT) $(LFLAGS) -o $@
 
 $(DIR_OBJ)/%.o:	$(DIR_SRC)/%.c
 				mkdir -p $(DIR_OBJ)
 				mkdir -p $(DIR_OBJ)/cubfile_reader
 				mkdir -p $(DIR_OBJ)/cubfile_reader/gnl
-				$(CC) $(CFLAGS) -c $< -I$(DIR_INC) -I$(DIR_MLX) -fsanitize=address -g -o $@
+				$(CC) $(CFLAGS) -c $< -I$(DIR_INC) -I$(DIR_MLX) -o $@
 
 $(LIBFT):
 			$(MAKE) -C $(DIR_LIBFT)

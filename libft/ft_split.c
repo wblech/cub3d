@@ -3,123 +3,91 @@
 /*                                                        :::      ::::::::   */
 /*   ft_split.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: wbertoni <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: wbertoni <wbertoni@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/01/24 18:29:40 by wbertoni          #+#    #+#             */
-/*   Updated: 2020/01/27 18:32:26 by wbertoni         ###   ########.fr       */
+/*   Created: 2020/10/17 18:32:23 by wbertoni          #+#    #+#             */
+/*   Updated: 2020/10/17 18:34:16 by wbertoni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
 /*
-** Count how many rows the tab will have
-** Return: An int with the total oh rows
+**	Count how many words a string has,
+**  with character c as a space character.
 */
 
-static	int		counterow(char *cpy, char c)
+static int	word_count(const char *str, char c)
 {
 	int i;
-	int counter;
+	int trigger;
 
 	i = 0;
-	counter = 0;
-	if (!cpy[i])
-		return (0);
-	if (ft_strchr(cpy, c) == NULL)
-		return (1);
-	while (cpy[i])
+	trigger = 0;
+	while (*str)
 	{
-		if (cpy[i] == c && cpy[i + 1] != c && cpy[i + 1] != '\0')
-			counter++;
-		i++;
-	}
-	return (counter + 1);
-}
-
-/*
-** Get the string until find the set char
-** Return: The string that it found
-*/
-
-static	char	*splitstr(char *src, char c)
-{
-	char	*dst;
-	size_t	dstsize;
-	int		i;
-
-	i = 0;
-	while (src[i] != c && src[i])
-		i++;
-	dst = (char *)malloc(i * sizeof(char));
-	dstsize = i + 1;
-	ft_strlcpy(dst, src, dstsize);
-	return (dst);
-}
-
-/*
-** Free the allocation made for the tab
-** Return: Nothing
-*/
-
-static	void	freetab(char **tab, int i)
-{
-	while (i >= 0)
-		free(tab[i--]);
-	free(tab);
-}
-
-/*
-** Put the string inside tab
-** Return: The tab with all the strings inside.
-*/
-
-static	char	**createtab(char **tab, char *cpy, char c, int rows)
-{
-	int		i;
-	char	*set;
-
-	i = 0;
-	set = ft_chartostr(c);
-	while (cpy && i < rows)
-	{
-		tab[i] = ft_strdup(splitstr(cpy, c));
-		if (tab[i] == NULL)
+		if (*str != c && trigger == 0)
 		{
-			freetab(tab, i);
-			return (NULL);
+			trigger = 1;
+			i++;
 		}
-		cpy = ft_strchr(cpy, c);
-		if (cpy != NULL)
-			cpy = ft_strtrim(cpy, (char const *)set);
-		i++;
+		else if (*str == c)
+			trigger = 0;
+		str++;
 	}
-	tab[i] = (char *)'\0';
-	return (tab);
+	return (i);
 }
 
-char			**ft_split(char const *s, char c)
+/*
+**	Returns a substring from str, with
+** 	char zero at index start and finishing
+**	the copy at index finish.
+*/
+
+static char	*word_dup(const char *str, int start, int finish)
 {
-	char	*cpy;
-	char	*set;
-	char	**tab;
+	char	*word;
 	int		i;
-	int		rows;
 
 	i = 0;
-	rows = 0;
-	if (s == NULL)
+	word = malloc(((finish - start) * sizeof(char)) + 1);
+	while (start < finish)
+		word[i++] = str[start++];
+	word[i] = '\0';
+	return (word);
+}
+
+/*
+**	Split a string into one or more substrings,
+**	returning an array of substrings. The split
+**	is made according the separator c.
+*/
+
+char		**ft_split(char const *s, char c)
+{
+	size_t	i;
+	size_t	j;
+	int		index;
+	char	**split;
+
+	if (!s)
 		return (NULL);
-	set = ft_chartostr(c);
-	cpy = ft_strtrim(s, (char const *)set);
-	if (cpy == NULL)
+	i = 0;
+	j = 0;
+	index = -1;
+	if (!(split = malloc((word_count(s, c) + 1) * sizeof(char *))))
 		return (NULL);
-	rows = counterow(cpy, c);
-	tab = (char **)malloc((rows + 1) * sizeof(char *));
-	if (tab == NULL)
-		return (NULL);
-	tab = createtab(tab, cpy, c, rows);
-	if (tab == NULL)
-		return (NULL);
-	return (tab);
+	while (i <= ft_strlen(s))
+	{
+		if (s[i] != c && index < 0)
+			index = i;
+		else if ((s[i] == c || i == ft_strlen(s)) && index >= 0)
+		{
+			split[j++] = word_dup(s, index, i);
+			index = -1;
+		}
+		i++;
+	}
+	split[j] = NULL;
+	return (split);
 }

@@ -6,7 +6,7 @@
 /*   By: wbertoni <wbertoni@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/12 11:53:28 by wbertoni          #+#    #+#             */
-/*   Updated: 2020/10/12 11:55:22 by wbertoni         ###   ########.fr       */
+/*   Updated: 2020/10/17 15:29:52 by wbertoni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,5 +91,7 @@ t_error_file	ft_get_cubfile_value(t_file *file, char *line);
 t_error_file	ft_malloc_file_map(t_file *file);
 void			ft_del_file(t_file *file);
 void			ft_del_map(t_map *map);
+void			ft_del_info(char **info);
+
 
 #endif

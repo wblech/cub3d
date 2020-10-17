@@ -6,7 +6,7 @@
 /*   By: wbertoni <wbertoni@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/15 00:25:51 by wbertoni          #+#    #+#             */
-/*   Updated: 2020/10/08 16:42:48 by wbertoni         ###   ########.fr       */
+/*   Updated: 2020/10/17 15:28:43 by wbertoni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,10 +55,6 @@ static t_error_file		ft_get_player_position(t_file *file)
 	return (eplayer);
 }
 
-/*
-** Possível memoryleak
-*/
-
 t_error_file			ft_get_cubfile_value(t_file *file, char *line)
 {
 	int				i;
@@ -77,10 +73,10 @@ t_error_file			ft_get_cubfile_value(t_file *file, char *line)
 	if (file->map->num_row == 0 && line[i] != '\0')
 	{
 		info = ft_split(line, ' ');
-		if ((e = ft_get_info_value(file, info)) != noerror)
-			return (e);
+		e = ft_get_info_value(file, info);
+		ft_del_info(info);
 	}
-	return (noerror);
+	return (e);
 }
 
 t_error_file			ft_malloc_file_map(t_file *file)

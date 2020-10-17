@@ -6,11 +6,11 @@
 /*   By: wbertoni <wbertoni@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/11 13:27:25 by wbertoni          #+#    #+#             */
-/*   Updated: 2020/10/05 17:31:38 by wbertoni         ###   ########.fr       */
+/*   Updated: 2020/10/17 19:13:22 by wbertoni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "get_next_line.h"
+#include "cubfile.h"
 
 int			ft_readfile(int fd, char **remember)
 {

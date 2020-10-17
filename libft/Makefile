@@ -52,8 +52,8 @@ OBJS_BONUS = $(SRCS_BONUS:.c=.o)
 NAME = libft.a
 HEADER = libft.h
 RM = rm -f
-CC = gcc
-CFLAGS = -Wall -Werror -Wextra
+CC = clang
+CFLAGS = -Wall -Werror -Wextra -g
 
 all:	$(NAME)
 
@@ -77,5 +77,3 @@ bonus:	$(OBJS) $(OBJS_BONUS) $(HEADER)
 	$(CC) $(FLAGS) -c $< -o $(<:.c=.o)
 
 .PHONY:	all clean fclean re
-
-

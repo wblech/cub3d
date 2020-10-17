@@ -6,11 +6,11 @@
 /*   By: wbertoni <wbertoni@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/27 13:30:54 by wbertoni          #+#    #+#             */
-/*   Updated: 2020/10/12 12:02:19 by wbertoni         ###   ########.fr       */
+/*   Updated: 2020/10/17 19:13:28 by wbertoni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "get_next_line.h"
+#include "cubfile.h"
 
 int		ft_strlen_char(const char *str, char c)
 {
