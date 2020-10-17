@@ -1,0 +1,4 @@
+.vscode
+main
+.objs
+*.o
