@@ -1,4 +1,4 @@
 *.o
-main
+cub3D
 .objs
 .vscode
