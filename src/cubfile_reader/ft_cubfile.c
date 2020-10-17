@@ -6,39 +6,33 @@
 /*   By: wbertoni <wbertoni@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/08 16:45:43 by wbertoni          #+#    #+#             */
-/*   Updated: 2020/10/12 12:05:07 by wbertoni         ###   ########.fr       */
+/*   Updated: 2020/10/17 13:21:57 by wbertoni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cubfile.h"
 
-static void		ft_del_line(char **line)
-{
-	free(*line);
-	free(line);
-}
-
 static int		ft_read_cubfile(t_file *file, int fopen)
 {
 	t_error_file	e;
-	char			**line;
+	char			*line;
 	int				ret;
 
-	line = (char **)malloc(sizeof(char *));
+	line = (char *)malloc(sizeof(char));
 	if (!line)
 		return (FALSE);
-	while ((ret = get_next_line(fopen, line)))
+	while ((ret = get_next_line(fopen, &line)))
 	{
 		if (ret < 0)
 			return (FALSE);
-		if ((e = ft_get_cubfile_value(file, *line)) != noerror)
+		if ((e = ft_get_cubfile_value(file, line)) != noerror)
 		{
 			ft_print_error_cubfile(e);
-			ft_del_line(line);
+			free(line);
 			return (FALSE);
 		}
 	}
-	ft_del_line(line);
+	free(line);
 	return (TRUE);
 }
 
