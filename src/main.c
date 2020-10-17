@@ -8,7 +8,7 @@ int	main(void)
 	void *window_ptr;
 	t_file *file;
 
-	file = ft_cubfile("../maps/1.cub");
+	file = ft_cubfile("./maps/1.cub");
 	mlx = mlx_init();
 	window_ptr = mlx_new_window(mlx, file->width, file->height, "Testando Novamente");
 	mlx_loop(mlx);
