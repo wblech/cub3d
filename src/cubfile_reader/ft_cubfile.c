@@ -6,7 +6,7 @@
 /*   By: wbertoni <wbertoni@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/08 16:45:43 by wbertoni          #+#    #+#             */
-/*   Updated: 2020/10/17 15:23:39 by wbertoni         ###   ########.fr       */
+/*   Updated: 2020/10/17 19:22:46 by wbertoni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,9 +18,6 @@ static int		ft_read_cubfile(t_file *file, int fopen)
 	char			*line;
 	int				ret;
 
-	// line = (char *)malloc(sizeof(char));
-	// if (!line)
-	// 	return (FALSE);
 	while ((ret = get_next_line(fopen, &line)))
 	{
 		if (ret < 0)

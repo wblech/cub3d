@@ -6,13 +6,13 @@
 /*   By: wbertoni <wbertoni@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/14 23:40:30 by wbertoni          #+#    #+#             */
-/*   Updated: 2020/10/17 15:29:25 by wbertoni         ###   ########.fr       */
+/*   Updated: 2020/10/17 19:25:08 by wbertoni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cubfile.h"
 
-void			ft_del_info(char **info)
+void				ft_del_info(char **info)
 {
 	int i;
 
