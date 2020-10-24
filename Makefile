@@ -14,6 +14,7 @@ SRCS = 	$(DIR_SRC)/cubfile_reader/gnl/get_next_line.c \
 		$(DIR_SRC)/cubfile_reader/ft_cubfile.c \
 		$(DIR_SRC)/cubfile_reader/ft_cubfile_utils.c \
 		$(DIR_SRC)/cubfile_reader/ft_del_file.c \
+		$(DIR_SRC)/my_mlx_pixel_put.c \
 		$(DIR_SRC)/main.c
 
 NAME = cub3D
