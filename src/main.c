@@ -6,14 +6,20 @@
 
 
 
-int	main(void)
+int	main(int argc, char **argv)
 {
 	void *mlx;
 	void *window_ptr;
 	t_file *cubfile;
 	t_img img;
 
-	cubfile = ft_cubfile("./maps/1.cub");
+	if (argc < 2)
+	{
+		ft_putstr("Error:\nSecond argument must be a path to the map");
+		return (1);
+	}
+
+	cubfile = ft_cubfile(argv[1]);
 	mlx = mlx_init();
 	window_ptr = mlx_new_window(mlx, (*cubfile).width, (*cubfile).height, "Testando Novamente");
 	img.img = mlx_new_image(mlx, (*cubfile).width, (*cubfile).height);
