@@ -6,7 +6,7 @@
 /*   By: wbertoni <wbertoni@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/08 16:45:43 by wbertoni          #+#    #+#             */
-/*   Updated: 2020/10/17 19:22:46 by wbertoni         ###   ########.fr       */
+/*   Updated: 2020/10/24 21:08:21 by wbertoni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,10 +96,12 @@ t_file			*ft_cubfile(char *cubfile)
 		perror("Error\n");
 		return (NULL);
 	}
-	if (!ft_read_cubfile(file, fopen))
+	if (!ft_read_cubfile(file, fopen)
+	|| !ft_cubfile_check_and_get_function(file))
+	{
+		ft_del_file(file);
 		return (NULL);
-	if (!ft_cubfile_check_and_get_function(file))
-		return (NULL);
+	}
 	file->map->num_sprite = ft_count_sprite(file->map);
 	return (file);
 }
