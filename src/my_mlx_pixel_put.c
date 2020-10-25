@@ -1,29 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   cub3d.h                                            :+:      :+:    :+:   */
+/*   my_mlx_pixel_put.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: wbertoni <wbertoni@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/10/17 19:26:09 by wbertoni          #+#    #+#             */
-/*   Updated: 2020/10/24 18:48:16 by wbertoni         ###   ########.fr       */
+/*   Created: 2020/10/24 14:57:05 by wbertoni          #+#    #+#             */
+/*   Updated: 2020/10/24 15:14:59 by wbertoni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef CUB3D_CUB3D_H
-# define CUB3D_CUB3D_H
+#include "cub3d.h"
 
-# include "cubfile.h"
-# include "struct_cub3d.h"
+void my_mlx_pixel_put(t_img *img, int x, int y, int color)
+{
+	char *dst;
 
-# ifndef TRUE
-#  define TRUE 1
-# endif
-
-# ifndef FALSE
-#  define FALSE 0
-# endif
-
-void my_mlx_pixel_put(t_img *img, int x, int y, int color);
-
-#endif
+	dst = img->addr + (y * img->line_length + x * (img->bits_per_pixel / 8));
+	*(unsigned int*)dst = color;
+}
