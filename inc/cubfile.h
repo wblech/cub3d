@@ -6,7 +6,7 @@
 /*   By: wbertoni <wbertoni@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/12 11:53:28 by wbertoni          #+#    #+#             */
-/*   Updated: 2020/10/24 16:18:29 by wbertoni         ###   ########.fr       */
+/*   Updated: 2020/11/02 13:14:36 by wbertoni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,8 +22,10 @@
 # define FALSE 0
 
 # ifndef TILE_SIZE
-#  define TILE_SIZE 64
+#  define TILE_SIZE 32
 # endif
+
+int g_tile_size;
 
 typedef struct	s_map
 {

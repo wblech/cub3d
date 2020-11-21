@@ -6,7 +6,7 @@
 /*   By: wbertoni <wbertoni@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/15 00:25:51 by wbertoni          #+#    #+#             */
-/*   Updated: 2020/10/17 15:28:43 by wbertoni         ###   ########.fr       */
+/*   Updated: 2020/11/21 12:17:15 by wbertoni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,13 +26,14 @@ static t_error_file		ft_check_cubfile(t_file *file)
 	return (noerror);
 }
 
-static t_error_file		ft_get_player_position(t_file *file)
+static t_error_file		ft_get_player_position_cubfile(t_file *file)
 {
 	int i;
 	int j;
 
 	i = 0;
 	j = 0;
+	g_tile_size = file->width / file->map->num_col;
 	while (file->map->map[i] != '\0')
 	{
 		while (file->map->map[i][j] != '\0')
@@ -42,8 +43,8 @@ static t_error_file		ft_get_player_position(t_file *file)
 			|| file->map->map[i][j] == 'E')
 			{
 				file->map->initial_pl_cardinal = file->map->map[i][j];
-				file->map->initial_pl_x = j * TILE_SIZE;
-				file->map->initial_pl_y = i * TILE_SIZE;
+				file->map->initial_pl_x = j * g_tile_size;
+				file->map->initial_pl_y = i * g_tile_size;
 				file->map->map[i][j] = '0';
 				return (noerror);
 			}
@@ -103,7 +104,7 @@ int						ft_cubfile_check_and_get_function(t_file *file)
 		ft_print_error_cubfile(e);
 		return (FALSE);
 	}
-	if ((e = ft_get_player_position(file)) != noerror)
+	if ((e = ft_get_player_position_cubfile(file)) != noerror)
 	{
 		ft_print_error_cubfile(e);
 		return (FALSE);
