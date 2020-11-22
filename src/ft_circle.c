@@ -6,17 +6,17 @@
 /*   By: wbertoni <wbertoni@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/02 13:43:41 by wbertoni          #+#    #+#             */
-/*   Updated: 2020/11/02 13:44:14 by wbertoni         ###   ########.fr       */
+/*   Updated: 2020/11/22 11:35:09 by wbertoni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-static void sym_circle_filled(t_img *img, t_point center, int x, int y)
+static void	sym_circle_filled(t_img *img, t_point center, int x, int y)
 {
-	t_point start[4];
-	t_point end[4];
-	int i;
+	t_point	start[4];
+	t_point	end[4];
+	int		i;
 
 	start[0] = ft_create_point((center.x - x), (center.y + y), center.color);
 	end[0] = ft_create_point((center.x + x), (center.y + y), center.color);
@@ -34,7 +34,7 @@ static void sym_circle_filled(t_img *img, t_point center, int x, int y)
 	}
 }
 
-void ft_circle_filled(t_img *img, t_point center, int r)
+void		ft_circle_filled(t_img *img, t_point center, int r)
 {
 	int x;
 	int y;

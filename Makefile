@@ -19,6 +19,10 @@ SRCS = 	$(DIR_SRC)/cubfile_reader/gnl/get_next_line.c \
 		$(DIR_SRC)/ft_quadrilateral.c \
 		$(DIR_SRC)/ft_circle.c \
 		$(DIR_SRC)/ft_line.c \
+		$(DIR_SRC)/ft_player.c \
+		$(DIR_SRC)/helpers.c \
+		$(DIR_SRC)/ft_collision.c \
+		$(DIR_SRC)/ft_draw_2d_map.c \
 		$(DIR_SRC)/main.c
 
 NAME = cub3D
