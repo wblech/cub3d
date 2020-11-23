@@ -6,7 +6,7 @@
 /*   By: wbertoni <wbertoni@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/22 11:36:28 by wbertoni          #+#    #+#             */
-/*   Updated: 2020/11/22 11:53:17 by wbertoni         ###   ########.fr       */
+/*   Updated: 2020/11/23 18:18:56 by wbertoni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,11 +26,13 @@ static void	ft_create_2d_map(t_img *img, t_map *map)
 		while (i_col < map->num_col)
 		{
 			start = ft_create_point(
-				(MINIMAP_SCALE_FACTOR * (i_col * g_tile_size)),
-				(MINIMAP_SCALE_FACTOR * (i_row * g_tile_size)), 0x00000000);
-			size = ft_create_point(MINIMAP_SCALE_FACTOR * g_tile_size, MINIMAP_SCALE_FACTOR * g_tile_size,
-								   (map->map[i_row][i_col] == '1')
-								   ? 0x00000000 : 0x00ffffff);
+				MINIMAP_SCALE_FACTOR * i_col * g_tile_size,
+				MINIMAP_SCALE_FACTOR * i_row * g_tile_size,
+				0x00000000);
+			size = ft_create_point(MINIMAP_SCALE_FACTOR * g_tile_size,
+								MINIMAP_SCALE_FACTOR * g_tile_size,
+								(map->map[i_row][i_col] == '1')
+								? 0x00000000 : 0x00ffffff);
 			ft_rect_filled_borderless(img, start, size);
 			i_col++;
 		}
@@ -42,6 +44,7 @@ static void	ft_create_2d_map(t_img *img, t_map *map)
 /*
 ** Get player x and y and draw a circle
 */
+
 static void	ft_render_player_2d(t_player *player, t_img *img)
 {
 	t_point central;
