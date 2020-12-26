@@ -1,4 +1,6 @@
 *.o
-main
+cub3D
 .objs
 .vscode
+libft.a
+arquivos de terceiros

@@ -1,0 +1,6 @@
+.vscode
+main
+.objs
+*.o
+adrian_get_next_line.h
+adrian_get_next_line.c
