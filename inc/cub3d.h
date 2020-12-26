@@ -6,7 +6,7 @@
 /*   By: wbertoni <wbertoni@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/17 19:26:09 by wbertoni          #+#    #+#             */
-/*   Updated: 2020/11/22 11:41:55 by wbertoni         ###   ########.fr       */
+/*   Updated: 2020/12/26 13:56:08 by wbertoni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,10 @@
 
 # define PI 3.14159265
 # define TWO_PI 6.28318530
-# define FOV_ANGLE (60 * (PI / 180))
+// # define FOV_ANGLE (60 * (PI / 180))
+# define FOV_ANGLE 60
+
+# define WALL_STRIP_WIDTH 1
 
 # define NORTH 3 * (PI / 2)
 # define SOUTH PI / 2
@@ -60,6 +63,14 @@ int		new_position_player(int keycode, t_game *game);
 */
 int		ft_is_pointer_null(void *ptr);
 int		ft_get_error(int (*func)(void *), void *a, char *msg);
+float	ft_distance_between_points(t_point start, t_point end);
+int		ft_calc_facing(float ray_angle, t_face face);
+
+/*
+** ft_helper_angle.c
+*/
+float	ft_degtorad(float degree);
+float	ft_normalize_angle(float angle);
 
 /*
 ** ft_collision.c
@@ -71,10 +82,24 @@ int		ft_has_wall(t_game *game, float x, float y, char id);
 ** main.c
 */
 int		ft_render(t_game *game);
+void	ft_del_rays(t_game *game);
+
 
 /*
 ** ft_draw_2d_map.c
 */
 int		ft_draw_2d_map(t_game *game, t_img *img);
+
+/*
+** ft_ray_cast.c
+*/
+int		ft_raycast(t_game *game);
+
+/*
+** ft_helper_raycasting.c
+*/
+float get_x_to_check(float next_x, float ray_angle, int is_vert);
+float get_y_to_check(float next_y, float ray_angle, int is_vert);
+void ft_helper_rc(t_game *game, t_ray **rays);
 
 #endif

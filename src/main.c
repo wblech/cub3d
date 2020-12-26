@@ -2,9 +2,26 @@
 #include "cubfile.h"
 #include "cub3d.h"
 
+void ft_del_rays(t_game *game)
+{
+	int i;
+	int num_ray;
+
+	num_ray = game->cubfile->width / WALL_STRIP_WIDTH;
+	i = 0;
+	while (i < num_ray)
+	{
+		free(game->rays[i]);
+		i++;
+	}
+	free(game->rays);
+}
+
 int ft_close(t_game *game)
 {
 	mlx_destroy_window(game->mlx_ptr, game->win_ptr);
+	if (game->rays != NULL)
+		ft_del_rays(game);
 	ft_del_file(game->cubfile);
 	mlx_destroy_image(game->mlx_ptr, game->frame->img);
 	free(game->player);
@@ -12,8 +29,6 @@ int ft_close(t_game *game)
 	exit(0);
 	return (1);
 }
-
-
 
 t_img *ft_create_img(t_game *game)
 {
@@ -43,6 +58,7 @@ int ft_render(t_game *game)
 	new_img = ft_create_img(game);
 	if (!new_img)
 		return (0);
+	ft_raycast(game);
 	ft_draw_2d_map(game, new_img);
 	// center = ft_create_point(vars->player->x, vars->player->y, 0x00ff0000);
 	// if (!ft_raycast(vars))
@@ -119,6 +135,7 @@ mlx_init"))
 	if (ft_get_error(&ft_is_pointer_null, game->win_ptr, "Error:\nInitialiasing\
 mlx_new_window"))
 		return (FALSE);
+	game->rays = NULL;
 	return (TRUE);
 }
 
@@ -135,6 +152,7 @@ get cubfile info"))
 	if (!ft_get_player_position(game))
 		return (FALSE);
 	game->frame = ft_create_img(game);
+	ft_raycast(game);
 	ft_draw_2d_map(game, game->frame);
 	mlx_put_image_to_window(game->mlx_ptr, game->win_ptr , game->frame->img, 0, 0);
 
@@ -154,12 +172,12 @@ int	main(int argc, char **argv)
 	// t_img img;
 	t_game *game;
 
-	game = (t_game *)malloc(sizeof(t_game));
 	if (argc < 2)
 	{
 		ft_putstr("Error:\nSecond argument must be a path to the map");
 		return (1);
 	}
+	game = (t_game *)malloc(sizeof(t_game));
 	if (!ft_setup(game, argv[1]))
 		exit(1);
 

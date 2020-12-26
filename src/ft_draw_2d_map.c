@@ -6,7 +6,7 @@
 /*   By: wbertoni <wbertoni@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/22 11:36:28 by wbertoni          #+#    #+#             */
-/*   Updated: 2020/11/23 18:18:56 by wbertoni         ###   ########.fr       */
+/*   Updated: 2020/12/26 12:59:18 by wbertoni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,21 +57,24 @@ static void	ft_render_player_2d(t_player *player, t_img *img)
 
 int			ft_draw_2d_map(t_game *game, t_img *img)
 {
-	t_point start;
-	t_point end;
+	t_point		start;
+	t_point		end;
+	int			i;
 
+	i = 0;
 	start = ft_create_point(
 		MINIMAP_SCALE_FACTOR * game->player->x,
 		MINIMAP_SCALE_FACTOR * game->player->y,
 		0x00ff0000);
-	end = ft_create_point(
-		MINIMAP_SCALE_FACTOR * (game->player->x
-		+ cosf(game->player->rotation_angle) * 20),
-		MINIMAP_SCALE_FACTOR * (game->player->y
-		+ sinf(game->player->rotation_angle) * 20),
-		0x00000000);
 	ft_create_2d_map(img, game->cubfile->map);
 	ft_render_player_2d(game->player, img);
-	ft_line_dda(img, start, end);
+	while (i < (game->cubfile->width / WALL_STRIP_WIDTH))
+	{
+		end = ft_create_point(MINIMAP_SCALE_FACTOR * game->rays[i]->wall_hit_x,
+							MINIMAP_SCALE_FACTOR * game->rays[i]->wall_hit_y,
+							0x00ff0000);
+		ft_line_dda(img, start, end);
+		i++;
+	}
 	return (TRUE);
 }

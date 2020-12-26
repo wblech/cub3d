@@ -21,8 +21,11 @@ SRCS = 	$(DIR_SRC)/cubfile_reader/gnl/get_next_line.c \
 		$(DIR_SRC)/ft_line.c \
 		$(DIR_SRC)/ft_player.c \
 		$(DIR_SRC)/helpers.c \
+		$(DIR_SRC)/ft_helper_angle.c \
 		$(DIR_SRC)/ft_collision.c \
 		$(DIR_SRC)/ft_draw_2d_map.c \
+		$(DIR_SRC)/ft_helper_raycasting.c \
+		$(DIR_SRC)/ft_raycast.c \
 		$(DIR_SRC)/main.c
 
 NAME = cub3D
@@ -59,7 +62,7 @@ fclean:	clean
 re:	fclean all
 
 debug:	$(LIBFT)
-	$(CC) $(CFLAGS) $(SRCS) -I$(DIR_INC) -L$(DIR_LIBFT) $(LFLAGS) -fsanitize=address -o $@ -g
+	$(CC) $(CFLAGS) $(SRCS) -I$(DIR_INC) -I$(DIR_MLX) -L$(DIR_MLX) -L$(DIR_LIBFT) $(LFLAGS) -o $@ -g
 
 
 .PHONY:	all clean fclean re
