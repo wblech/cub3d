@@ -6,13 +6,14 @@
 /*   By: wbertoni <wbertoni@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/17 19:26:09 by wbertoni          #+#    #+#             */
-/*   Updated: 2020/12/26 13:56:08 by wbertoni         ###   ########.fr       */
+/*   Updated: 2020/12/28 19:35:16 by wbertoni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef CUB3D_CUB3D_H
 # define CUB3D_CUB3D_H
 
+# include "mlx.h"
 # include "cubfile.h"
 # include "struct_cub3d.h"
 # include "math.h"
@@ -101,5 +102,20 @@ int		ft_raycast(t_game *game);
 float get_x_to_check(float next_x, float ray_angle, int is_vert);
 float get_y_to_check(float next_y, float ray_angle, int is_vert);
 void ft_helper_rc(t_game *game, t_ray **rays);
+
+/*
+** ft_get_alltextures.c
+*/
+int ft_get_all_textures(t_game *game);
+
+/*
+** ft_texture.c
+*/
+t_tex		*ft_create_texture(void *mlx_ptr, char *path);
+int	ft_texture_byte(t_tex *texture, t_point pos);
+int			ft_get_texture_color(t_game *game, float wall_height, int index,
+int y);
+
+
 
 #endif

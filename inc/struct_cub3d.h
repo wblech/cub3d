@@ -6,7 +6,7 @@
 /*   By: wbertoni <wbertoni@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/24 15:02:33 by wbertoni          #+#    #+#             */
-/*   Updated: 2020/12/26 13:33:00 by wbertoni         ###   ########.fr       */
+/*   Updated: 2020/12/28 19:26:07 by wbertoni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,14 @@ typedef struct s_ray
 	float wall_bottom;
 	int was_wall_hit_vertical;
 } t_ray;
+
+typedef struct s_tex
+{
+	t_img *img;
+	int width;
+	int height;
+} t_tex;
+
 typedef struct s_game
 {
 	t_file *cubfile;
@@ -54,6 +62,11 @@ typedef struct s_game
 	t_player *player;
 	t_img *frame;
 	t_ray **rays;
+	t_tex *north;
+	t_tex *south;
+	t_tex *west;
+	t_tex *east;
+	t_tex *tex_def;
 } t_game;
 
 typedef struct	s_point
@@ -66,7 +79,7 @@ typedef struct	s_point
 /*
 ** Struct to help raycasting(hrc) norminette size
 */
-typedef struct	hrc
+typedef struct	s_hrc
 {
 	t_point		intercept;
 	t_point		step;

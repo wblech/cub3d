@@ -26,6 +26,8 @@ SRCS = 	$(DIR_SRC)/cubfile_reader/gnl/get_next_line.c \
 		$(DIR_SRC)/ft_draw_2d_map.c \
 		$(DIR_SRC)/ft_helper_raycasting.c \
 		$(DIR_SRC)/ft_raycast.c \
+		$(DIR_SRC)/ft_texture.c \
+		$(DIR_SRC)/ft_get_all_textures.c \
 		$(DIR_SRC)/main.c
 
 NAME = cub3D

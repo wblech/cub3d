@@ -1,4 +1,3 @@
-#include "mlx.h"
 #include "cubfile.h"
 #include "cub3d.h"
 
@@ -17,12 +16,29 @@ void ft_del_rays(t_game *game)
 	free(game->rays);
 }
 
+static void ft_del_texture(void *mlx_ptr, t_tex *texture)
+{
+	mlx_destroy_image(mlx_ptr, texture->img->img);
+	free(texture->img);
+	free(texture);
+}
+
+void ft_del_texture_orchestrator(t_game *game)
+{
+	ft_del_texture(game->mlx_ptr, game->tex_def);
+	ft_del_texture(game->mlx_ptr, game->north);
+	ft_del_texture(game->mlx_ptr, game->south);
+	ft_del_texture(game->mlx_ptr, game->east);
+	ft_del_texture(game->mlx_ptr, game->west);
+}
+
 int ft_close(t_game *game)
 {
 	mlx_destroy_window(game->mlx_ptr, game->win_ptr);
 	if (game->rays != NULL)
 		ft_del_rays(game);
 	ft_del_file(game->cubfile);
+	ft_del_texture_orchestrator(game);
 	mlx_destroy_image(game->mlx_ptr, game->frame->img);
 	free(game->player);
 	free(game);
@@ -147,9 +163,9 @@ int ft_setup(t_game *game, char *path)
 	if (ft_get_error(&ft_is_pointer_null, game->cubfile, "Error:\nCouldn´t \
 get cubfile info"))
 		return (FALSE);
-	if (!ft_initialize_window(game))
+	if (!ft_initialize_window(game) || !ft_get_player_position(game))
 		return (FALSE);
-	if (!ft_get_player_position(game))
+	if (!ft_get_all_textures(game))
 		return (FALSE);
 	game->frame = ft_create_img(game);
 	ft_raycast(game);
