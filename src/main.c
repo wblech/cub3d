@@ -75,7 +75,9 @@ int ft_render(t_game *game)
 	if (!new_img)
 		return (0);
 	ft_raycast(game);
-	ft_draw_2d_map(game, new_img);
+	ft_draw_3d_map(game, new_img);
+	if (g_minimap)
+		ft_draw_2d_map(game, new_img);
 	// center = ft_create_point(vars->player->x, vars->player->y, 0x00ff0000);
 	// if (!ft_raycast(vars))
 	// 	return (0);
@@ -99,7 +101,10 @@ int ft_render(t_game *game)
 // 	return (angle);
 // }
 
-
+void ft_change_minimap_status()
+{
+	g_minimap = TRUE ? !g_minimap : FALSE;
+}
 
 int ft_update_press(int keycode, t_game *game)
 {
@@ -117,10 +122,10 @@ int ft_update_press(int keycode, t_game *game)
 		game->player->turn_direction = 1;
 	else if (keycode == KEY_ESC)
 		ft_close(game);
-	// if (keycode == KEY_M)
-	// {
-	// 	ft_change_minimap_status();
-	// }
+	if (keycode == KEY_M)
+	{
+		ft_change_minimap_status();
+	}
 	// return (ft_render(vars));
 	// return (TRUE);
 	return (new_position_player(keycode, game));
@@ -158,7 +163,7 @@ mlx_new_window"))
 
 int ft_setup(t_game *game, char *path)
 {
-	// g_minimap = FALSE;
+	g_minimap = FALSE;
 	game->cubfile = ft_cubfile(path);
 	if (ft_get_error(&ft_is_pointer_null, game->cubfile, "Error:\nCouldn´t \
 get cubfile info"))
@@ -169,14 +174,15 @@ get cubfile info"))
 		return (FALSE);
 	game->frame = ft_create_img(game);
 	ft_raycast(game);
-	ft_draw_2d_map(game, game->frame);
+	ft_draw_3d_map(game, game->frame);
+	if (g_minimap)
+		ft_draw_2d_map(game, game->frame);
 	mlx_put_image_to_window(game->mlx_ptr, game->win_ptr , game->frame->img, 0, 0);
 
 	// if (!ft_raycast(game))
 	// 	return (0);
 	// // ft_cast_sprite(game);
 	// ft_draw_2d_map(game, game->img);
-	// ft_draw_3d_map(game, game->img);
 	// ft_draw_sprite(game, game->img);
 	// mlx_put_image_to_window(game->mlx, game->win, game->img->img, 0, 0);
 	return (TRUE);

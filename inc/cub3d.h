@@ -6,7 +6,7 @@
 /*   By: wbertoni <wbertoni@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/17 19:26:09 by wbertoni          #+#    #+#             */
-/*   Updated: 2020/12/28 19:35:16 by wbertoni         ###   ########.fr       */
+/*   Updated: 2021/01/04 16:53:28 by wbertoni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,9 @@
 # define KEY_M 0x006d
 # define ARROW_LEFT 0xff51
 # define ARROW_RIGHT 0xff53
-# define MINIMAP_SCALE_FACTOR 1.0
+# define MINIMAP_SCALE_FACTOR 0.1
+
+int g_minimap;
 
 void	my_mlx_pixel_put(t_img *img, int x, int y, int color);
 t_point	ft_create_point(float x, float y, int color);
@@ -115,6 +117,11 @@ t_tex		*ft_create_texture(void *mlx_ptr, char *path);
 int	ft_texture_byte(t_tex *texture, t_point pos);
 int			ft_get_texture_color(t_game *game, float wall_height, int index,
 int y);
+
+/*
+** ft_draw_3d_map.c
+*/
+void		ft_draw_3d_map(t_game *game, t_img *img);
 
 
 

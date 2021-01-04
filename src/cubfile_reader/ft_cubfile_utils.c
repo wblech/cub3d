@@ -6,18 +6,17 @@
 /*   By: wbertoni <wbertoni@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/15 00:25:51 by wbertoni          #+#    #+#             */
-/*   Updated: 2020/11/21 12:17:15 by wbertoni         ###   ########.fr       */
+/*   Updated: 2021/01/04 16:43:53 by wbertoni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cubfile.h"
 
-static t_error_file		ft_check_cubfile(t_file *file)
+static t_error_file ft_check_cubfile(t_file *file)
 {
 	if (file->width < 0 || file->height < 0)
 		return (enores);
-	else if (!file->north || !file->south
-	|| !file->west || !file->east || !file->sprite)
+	else if (!file->north || !file->south || !file->west || !file->east || !file->sprite)
 		return (enotexture);
 	else if (file->floor < 0 || file->ceiling < 0)
 		return (enocolor);
@@ -26,25 +25,23 @@ static t_error_file		ft_check_cubfile(t_file *file)
 	return (noerror);
 }
 
-static t_error_file		ft_get_player_position_cubfile(t_file *file)
+static t_error_file ft_get_player_position_cubfile(t_file *file)
 {
 	int i;
 	int j;
 
 	i = 0;
 	j = 0;
-	g_tile_size = file->width / file->map->num_col;
+	// TILE_SIZE = file->width / file->map->num_col;
 	while (file->map->map[i] != '\0')
 	{
 		while (file->map->map[i][j] != '\0')
 		{
-			if (file->map->map[i][j] == 'N'
-			|| file->map->map[i][j] == 'S' || file->map->map[i][j] == 'W'
-			|| file->map->map[i][j] == 'E')
+			if (file->map->map[i][j] == 'N' || file->map->map[i][j] == 'S' || file->map->map[i][j] == 'W' || file->map->map[i][j] == 'E')
 			{
 				file->map->initial_pl_cardinal = file->map->map[i][j];
-				file->map->initial_pl_x = j * g_tile_size;
-				file->map->initial_pl_y = i * g_tile_size;
+				file->map->initial_pl_x = j * TILE_SIZE;
+				file->map->initial_pl_y = i * TILE_SIZE;
 				file->map->map[i][j] = '0';
 				return (noerror);
 			}
@@ -56,11 +53,11 @@ static t_error_file		ft_get_player_position_cubfile(t_file *file)
 	return (eplayer);
 }
 
-t_error_file			ft_get_cubfile_value(t_file *file, char *line)
+t_error_file ft_get_cubfile_value(t_file *file, char *line)
 {
-	int				i;
-	char			**info;
-	t_error_file	e;
+	int i;
+	char **info;
+	t_error_file e;
 
 	i = 0;
 	e = noerror;
@@ -80,7 +77,7 @@ t_error_file			ft_get_cubfile_value(t_file *file, char *line)
 	return (e);
 }
 
-t_error_file			ft_malloc_file_map(t_file *file)
+t_error_file ft_malloc_file_map(t_file *file)
 {
 	file->map = (t_map *)malloc(sizeof(t_map));
 	if (!file->map)
@@ -90,7 +87,7 @@ t_error_file			ft_malloc_file_map(t_file *file)
 	return (noerror);
 }
 
-int						ft_cubfile_check_and_get_function(t_file *file)
+int ft_cubfile_check_and_get_function(t_file *file)
 {
 	t_error_file e;
 
