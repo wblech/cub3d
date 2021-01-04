@@ -6,22 +6,23 @@
 /*   By: wbertoni <wbertoni@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/22 10:58:43 by wbertoni          #+#    #+#             */
-/*   Updated: 2021/01/04 16:43:24 by wbertoni         ###   ########.fr       */
+/*   Updated: 2021/01/04 18:02:18 by wbertoni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-int is_end_window(t_game *game, float x, float y)
+int	is_end_window(t_game *game, float x, float y)
 {
-	if (x <= 0 || x >= game->cubfile->map->num_col * TILE_SIZE || y >= game->cubfile->map->num_row * TILE_SIZE || y <= 0)
+	if (x <= 0 || x >= game->cubfile->map->num_col * TILE_SIZE
+	|| y >= game->cubfile->map->num_row * TILE_SIZE || y <= 0)
 	{
 		return (1);
 	}
 	return (0);
 }
 
-int ft_has_wall(t_game *game, float x, float y, char id)
+int	ft_has_wall(t_game *game, float x, float y, char id)
 {
 	int index_x;
 	int index_y;

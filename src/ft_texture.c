@@ -6,7 +6,7 @@
 /*   By: wbertoni <wbertoni@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/28 19:01:23 by wbertoni          #+#    #+#             */
-/*   Updated: 2020/12/28 19:25:52 by wbertoni         ###   ########.fr       */
+/*   Updated: 2021/01/04 18:27:09 by wbertoni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ t_tex		*ft_create_texture(void *mlx_ptr, char *path)
 	return (texture);
 }
 
-int	ft_texture_byte(t_tex *texture, t_point pos)
+int			ft_texture_byte(t_tex *texture, t_point pos)
 {
 	int offset;
 	int a;
@@ -49,14 +49,16 @@ int	ft_texture_byte(t_tex *texture, t_point pos)
 int			ft_get_texture_color(t_game *game, float wall_height, int index,
 int y)
 {
-	int		distanceFromTop;
+	int		dist_from_top;
 	int		x_texture;
 	int		y_texture;
-	t_point texture;
+	t_point	texture;
 
-	x_texture = (!game->rays[index]->was_wall_hit_vertical) ? (int)game->rays[index]->wall_hit_x % TILE_SIZE : (int)game->rays[index]->wall_hit_y % TILE_SIZE;
-	distanceFromTop = y + (wall_height / 2) - (game->cubfile->height / 2);
-	y_texture = distanceFromTop * ((float)game->tex_def->height / wall_height);
+	x_texture = (!game->rays[index]->was_wall_hit_vertical)
+							? (int)game->rays[index]->wall_hit_x % TILE_SIZE
+							: (int)game->rays[index]->wall_hit_y % TILE_SIZE;
+	dist_from_top = y + (wall_height / 2) - (game->cubfile->height / 2);
+	y_texture = dist_from_top * ((float)game->tex_def->height / wall_height);
 	texture.x = x_texture;
 	texture.y = y_texture;
 	if (ft_calc_facing(game->rays[index]->ray_angle, left)

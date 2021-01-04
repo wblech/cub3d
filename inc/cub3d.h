@@ -6,7 +6,7 @@
 /*   By: wbertoni <wbertoni@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/17 19:26:09 by wbertoni          #+#    #+#             */
-/*   Updated: 2021/01/04 16:53:28 by wbertoni         ###   ########.fr       */
+/*   Updated: 2021/01/04 17:50:20 by wbertoni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -122,6 +122,28 @@ int y);
 ** ft_draw_3d_map.c
 */
 void		ft_draw_3d_map(t_game *game, t_img *img);
+
+/*
+** ft_update_release_key.c
+*/
+int ft_update_press(int keycode, t_game *game);
+int ft_update_release(int keycode, t_game *game);
+
+/*
+** ft_close.c
+*/
+int ft_close(t_game *game);
+
+/*
+** ft_2d_helper.c
+*/
+void ft_change_minimap_status(void);
+
+/*
+** ft_create_destroy_img.c
+*/
+t_img *ft_create_img(t_game *game);
+void ft_destroy_free_set_img(t_game *game, t_img *new_img);
 
 
 

@@ -1,97 +1,25 @@
 #include "cubfile.h"
 #include "cub3d.h"
 
-void ft_del_rays(t_game *game)
-{
-	int i;
-	int num_ray;
-
-	num_ray = game->cubfile->width / WALL_STRIP_WIDTH;
-	i = 0;
-	while (i < num_ray)
-	{
-		free(game->rays[i]);
-		i++;
-	}
-	free(game->rays);
-}
-
-static void ft_del_texture(void *mlx_ptr, t_tex *texture)
-{
-	mlx_destroy_image(mlx_ptr, texture->img->img);
-	free(texture->img);
-	free(texture);
-}
-
-void ft_del_texture_orchestrator(t_game *game)
-{
-	ft_del_texture(game->mlx_ptr, game->tex_def);
-	ft_del_texture(game->mlx_ptr, game->north);
-	ft_del_texture(game->mlx_ptr, game->south);
-	ft_del_texture(game->mlx_ptr, game->east);
-	ft_del_texture(game->mlx_ptr, game->west);
-}
-
-int ft_close(t_game *game)
-{
-	mlx_destroy_window(game->mlx_ptr, game->win_ptr);
-	if (game->rays != NULL)
-		ft_del_rays(game);
-	ft_del_file(game->cubfile);
-	ft_del_texture_orchestrator(game);
-	mlx_destroy_image(game->mlx_ptr, game->frame->img);
-	free(game->player);
-	free(game);
-	exit(0);
-	return (1);
-}
-
-t_img *ft_create_img(t_game *game)
-{
-	t_img *img;
-
-	img = (t_img *)malloc(sizeof(t_img));
-	img->img = mlx_new_image(game->mlx_ptr, game->cubfile->width,
-							game->cubfile->height);
-	img->addr = mlx_get_data_addr(img->img, &img->bits_per_pixel,
-									&img->line_length, &img->endian);
-	return (img);
-}
-
-void ft_destroy_free_set_img(t_game *game, t_img *new_img)
-{
-	mlx_destroy_image(game->mlx_ptr, game->frame->img);
-	free(game->frame);
-	game->frame = new_img;
-}
-
 int ft_render(t_game *game)
 {
 
 	t_img *new_img;
-	// t_point center;
 
 	new_img = ft_create_img(game);
 	if (!new_img)
 		return (0);
-	ft_raycast(game);
+	if (!ft_raycast(game))
+		return (0);
 	ft_draw_3d_map(game, new_img);
 	if (g_minimap)
 		ft_draw_2d_map(game, new_img);
-	// center = ft_create_point(vars->player->x, vars->player->y, 0x00ff0000);
-	// if (!ft_raycast(vars))
-	// 	return (0);
-	// ft_draw_3d_map(vars, new_img);
 	// ft_cast_sprite(vars);
 	// ft_draw_sprite(vars, new_img);
-	// if (g_minimap)
-	// 	ft_draw_2d_map(vars, new_img);
 	mlx_put_image_to_window(game->mlx_ptr, game->win_ptr, new_img->img, 0, 0);
 	ft_destroy_free_set_img(game, new_img);
 	return (1);
 }
-
-
 
 // float	ft_normalize_angle(double angle)
 // {
@@ -100,49 +28,6 @@ int ft_render(t_game *game)
 // 		angle += (2 * PI);
 // 	return (angle);
 // }
-
-void ft_change_minimap_status()
-{
-	g_minimap = TRUE ? !g_minimap : FALSE;
-}
-
-int ft_update_press(int keycode, t_game *game)
-{
-	if (keycode == KEY_W)
-		game->player->walk_direction = 1;
-	else if (keycode == KEY_S)
-		game->player->walk_direction = -1;
-	else if (keycode == KEY_D)
-		game->player->walk_direction = +1;
-	else if (keycode == KEY_A)
-		game->player->walk_direction = -1;
-	else if (keycode == ARROW_LEFT)
-		game->player->turn_direction = -1;
-	else if (keycode == ARROW_RIGHT)
-		game->player->turn_direction = 1;
-	else if (keycode == KEY_ESC)
-		ft_close(game);
-	if (keycode == KEY_M)
-	{
-		ft_change_minimap_status();
-	}
-	// return (ft_render(vars));
-	// return (TRUE);
-	return (new_position_player(keycode, game));
-}
-// int ft_update_release(int keycode, t_vars *vars)
-// {
-// 	if (keycode == KEY_W)
-// 		vars->player->walk_direction = 0;
-// 	if (keycode == KEY_S)
-// 		vars->player->walk_direction = 0;
-// 	if (keycode == KEY_A)
-// 		vars->player->turn_direction = 0;
-// 	if (keycode == KEY_D)
-// 		vars->player->turn_direction = 0;
-// 	return (ft_render(vars));
-// }
-
 
 int ft_initialize_window(t_game *game)
 {
@@ -191,7 +76,6 @@ get cubfile info"))
 
 int	main(int argc, char **argv)
 {
-	// t_img img;
 	t_game *game;
 
 	if (argc < 2)
@@ -205,19 +89,11 @@ int	main(int argc, char **argv)
 
 	if (!mlx_hook(game->win_ptr, 2, 1L << 0, ft_update_press, game))
 		exit(1);
-	// if (!mlx_hook(game->win_ptr, 3, 1L << 1, ft_update_release, game))
-	// 	exit(1);
-
-	// if (!mlx_hook(game->win_ptr, 2, 1L << 0, ft_update_press, game))
-	// 	exit(1);
-
+	if (!mlx_hook(game->win_ptr, 3, 1L << 1, ft_update_release, game))
+		exit(1);
+	if (!mlx_expose_hook(game->win_ptr, ft_render, game))
+		exit(1);
 	mlx_hook(game->win_ptr, 17, 1L << 17, ft_close, game);
-
 	mlx_loop(game->mlx_ptr); //tem que ficar na main
-
-	// ft_del_file(cubfile);
-	// mlx_destroy_window(mlx, window_ptr);
-
-
 	return (0);
 }

@@ -6,14 +6,14 @@
 /*   By: wbertoni <wbertoni@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/28 18:38:27 by wbertoni          #+#    #+#             */
-/*   Updated: 2021/01/04 16:43:24 by wbertoni         ###   ########.fr       */
+/*   Updated: 2021/01/04 18:22:30 by wbertoni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-static void ft_draw_wall(t_game *game, t_img *img, float wall_height,
-						 int index)
+static void		ft_draw_wall(t_game *game, t_img *img, float wall_height,
+						int index)
 {
 	int color;
 	int i;
@@ -29,7 +29,7 @@ static void ft_draw_wall(t_game *game, t_img *img, float wall_height,
 		{
 			color = ft_get_texture_color(game, wall_height, index, y);
 			my_mlx_pixel_put(img, (index * WALL_STRIP_WIDTH) + i,
-							 game->rays[index]->wall_top + j, color);
+							game->rays[index]->wall_top + j, color);
 			y++;
 			j++;
 		}
@@ -39,7 +39,7 @@ static void ft_draw_wall(t_game *game, t_img *img, float wall_height,
 	}
 }
 
-static void ft_draw_ceiling(t_game *game, t_img *img, int index)
+static void		ft_draw_ceiling(t_game *game, t_img *img, int index)
 {
 	int i;
 	int j;
@@ -53,7 +53,7 @@ static void ft_draw_ceiling(t_game *game, t_img *img, int index)
 			while (j < game->rays[index]->wall_top)
 			{
 				my_mlx_pixel_put(img, (index * WALL_STRIP_WIDTH) + i, j,
-								 game->cubfile->ceiling);
+								game->cubfile->ceiling);
 				j++;
 			}
 			j = 0;
@@ -62,7 +62,7 @@ static void ft_draw_ceiling(t_game *game, t_img *img, int index)
 	}
 }
 
-static void ft_draw_floor(t_game *game, t_img *img, int index)
+static void		ft_draw_floor(t_game *game, t_img *img, int index)
 {
 	int i;
 	int j;
@@ -76,7 +76,7 @@ static void ft_draw_floor(t_game *game, t_img *img, int index)
 			while (j < game->cubfile->height)
 			{
 				my_mlx_pixel_put(img, (index * WALL_STRIP_WIDTH) + i, j,
-								 game->cubfile->floor);
+								game->cubfile->floor);
 				j++;
 			}
 			j = 0;
@@ -85,27 +85,44 @@ static void ft_draw_floor(t_game *game, t_img *img, int index)
 	}
 }
 
-void ft_draw_3d_map(t_game *game, t_img *img)
+/*
+** Function created to respect norminette rule
+*/
+
+static void		ft_norminette_rule(t_game *game, int i, float player_distance,
+				t_img *img)
 {
-	float player_distance;
-	float wall_height;
-	float perpDistance;
-	int i;
+	float	wall_height;
+	float	perp_distance;
+
+	perp_distance = game->rays[i]->distance * cos(game->rays[i]->ray_angle -
+					game->player->rotation_angle);
+	wall_height = (TILE_SIZE / perp_distance) * player_distance;
+	game->rays[i]->wall_top = (game->cubfile->height / 2)
+								- (wall_height / 2);
+	game->rays[i]->wall_top = (game->rays[i]->wall_top < 0) ? 0
+								: game->rays[i]->wall_top;
+	game->rays[i]->wall_bottom = (game->cubfile->height / 2)
+									+ (wall_height / 2);
+	game->rays[i]->wall_bottom = (game->rays[i]->wall_bottom
+							> game->cubfile->height) ? game->cubfile->height
+							: game->rays[i]->wall_bottom;
+	ft_draw_ceiling(game, img, i);
+	ft_draw_wall(game, img, wall_height, i);
+	ft_draw_floor(game, img, i);
+}
+
+void			ft_draw_3d_map(t_game *game, t_img *img)
+{
+	float	player_distance;
+	int		i;
 
 	i = 0;
-	player_distance = (game->cubfile->width / 2) / tan(ft_degtorad(FOV_ANGLE / 2));
+	player_distance = (game->cubfile->width / 2)
+	/ tan(ft_degtorad(FOV_ANGLE / 2));
 	while (i < (game->cubfile->width / WALL_STRIP_WIDTH))
 	{
-		perpDistance = game->rays[i]->distance * cos(game->rays[i]->ray_angle - game->player->rotation_angle);
-		wall_height = (TILE_SIZE / perpDistance) * player_distance;
-		game->rays[i]->wall_top = (game->cubfile->height / 2) - (wall_height / 2);
-		game->rays[i]->wall_top = (game->rays[i]->wall_top < 0) ? 0
-																: game->rays[i]->wall_top;
-		game->rays[i]->wall_bottom = (game->cubfile->height / 2) + (wall_height / 2);
-		game->rays[i]->wall_bottom = (game->rays[i]->wall_bottom > game->cubfile->height) ? game->cubfile->height : game->rays[i]->wall_bottom;
-		ft_draw_ceiling(game, img, i);
-		ft_draw_wall(game, img, wall_height, i);
-		ft_draw_floor(game, img, i);
+		ft_norminette_rule(game, i, player_distance, img);
 		i++;
 	}
 }
