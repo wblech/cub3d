@@ -24,10 +24,15 @@ SRCS = 	$(DIR_SRC)/cubfile_reader/gnl/get_next_line.c \
 		$(DIR_SRC)/ft_helper_angle.c \
 		$(DIR_SRC)/ft_collision.c \
 		$(DIR_SRC)/ft_draw_2d_map.c \
+		$(DIR_SRC)/ft_draw_3d_map.c \
 		$(DIR_SRC)/ft_helper_raycasting.c \
 		$(DIR_SRC)/ft_raycast.c \
 		$(DIR_SRC)/ft_texture.c \
 		$(DIR_SRC)/ft_get_all_textures.c \
+		$(DIR_SRC)/ft_update_release_key.c \
+		$(DIR_SRC)/ft_close.c \
+		$(DIR_SRC)/ft_2d_helper.c \
+		$(DIR_SRC)/ft_create_destroy_img.c \
 		$(DIR_SRC)/main.c
 
 NAME = cub3D

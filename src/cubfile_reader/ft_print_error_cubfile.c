@@ -6,7 +6,7 @@
 /*   By: wbertoni <wbertoni@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/08 17:00:22 by wbertoni          #+#    #+#             */
-/*   Updated: 2020/10/12 12:06:55 by wbertoni         ###   ########.fr       */
+/*   Updated: 2021/01/12 18:40:15 by wbertoni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,8 @@ static void		ft_print_error_cubfile_norminette(t_error_file error)
 		ft_putstr("Error:\nCouldn´t find map information in cubfile\n");
 	else if (error == eplayer)
 		ft_putstr("Error:\nCouldn´t find initial player position on the map\n");
+	else if (error == espace)
+		ft_putstr("Error:\nOnly spaces (/' /') are allowed to separate data inside cubfile\n");
 }
 
 void			ft_print_error_cubfile(t_error_file error)

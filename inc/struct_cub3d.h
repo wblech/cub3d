@@ -6,12 +6,27 @@
 /*   By: wbertoni <wbertoni@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/24 15:02:33 by wbertoni          #+#    #+#             */
-/*   Updated: 2020/12/28 19:26:07 by wbertoni         ###   ########.fr       */
+/*   Updated: 2021/03/06 12:10:36 by wbertoni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef STRUCT_CUB3D_H
 # define STRUCT_CUB3D_H
+
+
+typedef struct s_intxy
+{
+	int x;
+	int y;
+} t_intxy;
+typedef struct s_sprite
+{
+	float x;
+	float y;
+	float distance;
+	float angle;
+	int visible;
+} t_sprite;
 
 typedef struct	s_img {
 	void		*img;
@@ -67,6 +82,8 @@ typedef struct s_game
 	t_tex *west;
 	t_tex *east;
 	t_tex *tex_def;
+	t_tex *sprite_tex;
+	t_sprite **sprite;
 } t_game;
 
 typedef struct	s_point

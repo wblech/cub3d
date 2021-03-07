@@ -6,7 +6,7 @@
 /*   By: wbertoni <wbertoni@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/28 18:38:27 by wbertoni          #+#    #+#             */
-/*   Updated: 2021/01/04 18:22:30 by wbertoni         ###   ########.fr       */
+/*   Updated: 2021/03/07 09:59:35 by wbertoni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -119,7 +119,7 @@ void			ft_draw_3d_map(t_game *game, t_img *img)
 
 	i = 0;
 	player_distance = (game->cubfile->width / 2)
-	/ tan(ft_degtorad(FOV_ANGLE / 2));
+	/ tan(ft_degtorad(FOV_ANGLE) / 2);
 	while (i < (game->cubfile->width / WALL_STRIP_WIDTH))
 	{
 		ft_norminette_rule(game, i, player_distance, img);

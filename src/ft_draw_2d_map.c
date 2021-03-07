@@ -6,7 +6,7 @@
 /*   By: wbertoni <wbertoni@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/22 11:36:28 by wbertoni          #+#    #+#             */
-/*   Updated: 2021/01/04 18:08:07 by wbertoni         ###   ########.fr       */
+/*   Updated: 2021/03/06 10:23:24 by wbertoni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,5 +76,6 @@ int				ft_draw_2d_map(t_game *game, t_img *img)
 		ft_line_dda(img, start, end);
 		i++;
 	}
+	render_map_sprites(img);
 	return (TRUE);
 }

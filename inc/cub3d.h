@@ -6,12 +6,12 @@
 /*   By: wbertoni <wbertoni@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/17 19:26:09 by wbertoni          #+#    #+#             */
-/*   Updated: 2021/01/04 17:50:20 by wbertoni         ###   ########.fr       */
+/*   Updated: 2021/03/07 10:13:19 by wbertoni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef CUB3D_CUB3D_H
-# define CUB3D_CUB3D_H
+#ifndef CUB3D_H
+# define CUB3D_H
 
 # include "mlx.h"
 # include "cubfile.h"
@@ -28,7 +28,6 @@
 
 # define PI 3.14159265
 # define TWO_PI 6.28318530
-// # define FOV_ANGLE (60 * (PI / 180))
 # define FOV_ANGLE 60
 
 # define WALL_STRIP_WIDTH 1
@@ -145,6 +144,7 @@ void ft_change_minimap_status(void);
 t_img *ft_create_img(t_game *game);
 void ft_destroy_free_set_img(t_game *game, t_img *new_img);
 
+void render_map_sprites(t_img *img);
 
 
 #endif

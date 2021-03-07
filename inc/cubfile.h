@@ -6,7 +6,7 @@
 /*   By: wbertoni <wbertoni@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/12 11:53:28 by wbertoni          #+#    #+#             */
-/*   Updated: 2021/01/04 16:45:16 by wbertoni         ###   ########.fr       */
+/*   Updated: 2021/01/12 18:39:11 by wbertoni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,6 +77,7 @@ typedef enum e_error_file
 	enocolor,
 	enomap,
 	eplayer,
+	espace,
 } t_error_file;
 
 void ft_print_error_cubfile(t_error_file error);
