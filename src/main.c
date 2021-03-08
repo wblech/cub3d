@@ -28,6 +28,43 @@ void render_map_sprites(t_img *img){ //minimap
 	}
 }
 
+// int			ft_get_tex_color_sprite(t_game *game, float sprite_height, int index,
+// int y)
+// {
+// 	int		dist_from_top;
+// 	int		x_texture;
+// 	int		y_texture;
+// 	t_point	texture;
+
+// 	x_texture = (!game->rays[index]->was_wall_hit_vertical)
+// 							? (int)game->rays[index]->wall_hit_x % TILE_SIZE
+// 							: (int)game->rays[index]->wall_hit_y % TILE_SIZE;
+// 	dist_from_top = y + (wall_height / 2) - (game->cubfile->height / 2);
+// 	y_texture = dist_from_top * ((float)game->tex_def->height / wall_height);
+// 	texture.x = x_texture;
+// 	texture.y = y_texture;
+// 	return ft_texture_byte(game->west, texture));
+
+// }
+
+int			ft_texture_byte_tex(t_tex *texture, t_point pos)
+{
+	int offset;
+	int a;
+	int r;
+	int g;
+	int b;
+
+	offset = (pos.y / 64) * texture->img->line_length + (pos.x / 64)
+	* (texture->img->bits_per_pixel / 8);
+	a = texture->img->addr[offset + 0];
+	r = texture->img->addr[offset + 1];
+	g = texture->img->addr[offset + 2];
+	b = texture->img->addr[offset + 3];
+	return (b << 24 | g << 16 | r << 8 | a);
+}
+
+
 void render_sprite_projection(t_game *game, t_img *img){
 	t_sprite visible_sprites[NUM_SPRITES];
 	int num_visible_sprites = 0;
@@ -118,17 +155,38 @@ void render_sprite_projection(t_game *game, t_img *img){
 
 		sprite_right_x = sprite_left_x + sprite_width;
 
+		// Width and height of the sprite texture
+		int texture_width = game->sprite_tex->width;
+		// int texture_height = game->sprite_tex->height;
+
 		// Loop alll the x values
 		int x;
 		int y;
+		unsigned color;
+		t_point texture;
+
 
 		x = sprite_left_x;
 		y = sprite_top_y;
 		while (x < sprite_right_x) {
+			float texel_width = (texture_width / sprite_width);
+
+			texture.x = (x - sprite_left_x) * texel_width;
+			// printf("%f\n", texture.x);
+
 			while (y < sprite_bottom_y) {
 				if (x > 0 && x < game->cubfile->width
-				&& y > 0 && y < game->cubfile->height)
-					my_mlx_pixel_put(img, x, y, 0xFFFF0000);
+				&& y > 0 && y < game->cubfile->height){
+					int distance_from_top = y + (sprite_height / 2)
+					- (game->cubfile->height / 2);
+
+					texture.y = distance_from_top
+					* (game->sprite_tex->height / sprite_height);
+
+					color = ft_texture_byte(game->sprite_tex, texture);
+					my_mlx_pixel_put(img, x, y, color);
+					// printf("%x\n", color);
+				}
 				y++;
 			}
 			y = sprite_top_y;
