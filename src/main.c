@@ -47,21 +47,18 @@ void render_map_sprites(t_img *img){ //minimap
 
 // }
 
-int			ft_texture_byte_tex(t_tex *texture, t_point pos)
+int			ft_texture_byte_sprite(t_tex *texture, t_point pos)
 {
-	int offset;
-	int a;
-	int r;
-	int g;
-	int b;
+    char *color;
+    int y;
+    int x;
 
-	offset = (pos.y / 64) * texture->img->line_length + (pos.x / 64)
-	* (texture->img->bits_per_pixel / 8);
-	a = texture->img->addr[offset + 0];
-	r = texture->img->addr[offset + 1];
-	g = texture->img->addr[offset + 2];
-	b = texture->img->addr[offset + 3];
-	return (b << 24 | g << 16 | r << 8 | a);
+    y = (int)pos.y;
+    x = (int)pos.x;
+
+    color = texture->img->addr + (y * texture->img->line_length + x * (texture->img->bits_per_pixel / 8));
+    return (*(unsigned int*)color);
+
 }
 
 
@@ -160,14 +157,14 @@ void render_sprite_projection(t_game *game, t_img *img){
 		// int texture_height = game->sprite_tex->height;
 
 		// Loop alll the x values
-		int x;
-		int y;
-		unsigned color;
+		float x;
+		float y;
+		int color;
 		t_point texture;
-
 
 		x = sprite_left_x;
 		y = sprite_top_y;
+		color = 0;
 		while (x < sprite_right_x) {
 			float texel_width = (texture_width / sprite_width);
 
@@ -184,8 +181,9 @@ void render_sprite_projection(t_game *game, t_img *img){
 					* (game->sprite_tex->height / sprite_height);
 
 					color = ft_texture_byte(game->sprite_tex, texture);
-					my_mlx_pixel_put(img, x, y, color);
-					// printf("%x\n", color);
+					if (color != (int)0xff000000)
+						my_mlx_pixel_put(img, x, y, color);
+					// printf("%i\n", color);
 				}
 				y++;
 			}

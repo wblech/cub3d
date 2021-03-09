@@ -6,7 +6,7 @@
 /*   By: wbertoni <wbertoni@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/28 19:01:23 by wbertoni          #+#    #+#             */
-/*   Updated: 2021/03/06 09:51:33 by wbertoni         ###   ########.fr       */
+/*   Updated: 2021/03/09 12:27:53 by wbertoni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,19 +31,15 @@ t_tex		*ft_create_texture(void *mlx_ptr, char *path)
 
 int			ft_texture_byte(t_tex *texture, t_point pos)
 {
-	int offset;
-	int a;
-	int r;
-	int g;
-	int b;
+    char *color;
+    int y;
+    int x;
 
-	offset = pos.y * texture->img->line_length + pos.x
-	* (texture->img->bits_per_pixel / 8);
-	a = texture->img->addr[offset + 0];
-	r = texture->img->addr[offset + 1];
-	g = texture->img->addr[offset + 2];
-	b = texture->img->addr[offset + 3];
-	return (b << 24 | g << 16 | r << 8 | a);
+    y = (int)pos.y;
+    x = (int)pos.x;
+
+    color = texture->img->addr + (y * texture->img->line_length + x * (texture->img->bits_per_pixel / 8));
+    return (*(unsigned int*)color);
 }
 
 int			ft_get_texture_color(t_game *game, float wall_height, int index,
