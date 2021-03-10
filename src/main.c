@@ -3,76 +3,76 @@
 
 //sprite
 
-#define NUM_SPRITES 1
+// #define NUM_SPRITES 3
 
-static t_sprite sprites[NUM_SPRITES] = {
-	{ .x = 1500, .y = 440}
-};
+// static t_sprite sprites[NUM_SPRITES] = {
+// 	{ .x = 1500, .y = 440},
+// 	{ .x = 1400, .y = 440},
+// 	{ .x = 1300, .y = 440}
+// };
+
+//Precisa fazer o free destes mallocs
+void ft_get_sprite_pos(t_game *game, int x, int y, int count){
+	game->sprite[count] = (t_sprite *)malloc(sizeof(t_sprite));
+	game->sprite[count]->x = x * TILE_SIZE - 1;
+	game->sprite[count]->y = y * TILE_SIZE - 1;
+	game->sprite[count]->visible = 0;
+}
+
+void ft_get_all_sprites_pos(t_game *game) {
+	int x;
+	int y;
+	int count;
+	int num_sprites;
+
+	num_sprites = game->cubfile->map->num_sprite;
+	x = 0;
+	y = 0;
+	count = 0;
+	game->sprite = (t_sprite **)malloc(num_sprites * sizeof(t_sprite *));
+	while (y < game->cubfile->map->num_row){
+		while(x < game->cubfile->map->num_col) {
+			if (game->cubfile->map->map[y][x] == '2') {
+				ft_get_sprite_pos(game, x, y, count);
+				count++;
+			}
+			x++;
+		}
+		x = 0;
+		y++;
+	}
+}
 
 //void
 
-void render_map_sprites(t_img *img){ //minimap
+void render_map_sprites(t_game *game, t_img *img){ //minimap
 	int i;
 	t_point start;
 	t_point size;
 
 	i = 0;
-	while (i < NUM_SPRITES) {
-		start.x = sprites[i].x * MINIMAP_SCALE_FACTOR;
-		start.y = sprites[i].y * MINIMAP_SCALE_FACTOR;
+	while (i < game->cubfile->map->num_sprite) {
+		start.x = game->sprite[i]->x * MINIMAP_SCALE_FACTOR;
+		start.y = game->sprite[i]->y * MINIMAP_SCALE_FACTOR;
 		size.x = 2;
 		size.y = 2;
-		size.color = (sprites[i].visible) ? 0x000000 : 0xFF4444;
+		size.color = (game->sprite[i]->visible) ? 0x000000 : 0xFF4444;
 		ft_rect_filled_borderless(img, start, size);
 		i++;
 	}
 }
 
-// int			ft_get_tex_color_sprite(t_game *game, float sprite_height, int index,
-// int y)
-// {
-// 	int		dist_from_top;
-// 	int		x_texture;
-// 	int		y_texture;
-// 	t_point	texture;
-
-// 	x_texture = (!game->rays[index]->was_wall_hit_vertical)
-// 							? (int)game->rays[index]->wall_hit_x % TILE_SIZE
-// 							: (int)game->rays[index]->wall_hit_y % TILE_SIZE;
-// 	dist_from_top = y + (wall_height / 2) - (game->cubfile->height / 2);
-// 	y_texture = dist_from_top * ((float)game->tex_def->height / wall_height);
-// 	texture.x = x_texture;
-// 	texture.y = y_texture;
-// 	return ft_texture_byte(game->west, texture));
-
-// }
-
-int			ft_texture_byte_sprite(t_tex *texture, t_point pos)
-{
-    char *color;
-    int y;
-    int x;
-
-    y = (int)pos.y;
-    x = (int)pos.x;
-
-    color = texture->img->addr + (y * texture->img->line_length + x * (texture->img->bits_per_pixel / 8));
-    return (*(unsigned int*)color);
-
-}
-
-
 void render_sprite_projection(t_game *game, t_img *img){
-	t_sprite visible_sprites[NUM_SPRITES];
+	t_sprite visible_sprites[game->cubfile->map->num_sprite];
 	int num_visible_sprites = 0;
 	int i;
 	float angle_sprite_player;
 
 	i = 0;
 	//Find sprites that are visible (inside the FOV)
-	while ( i < NUM_SPRITES) {
+	while ( i < game->cubfile->map->num_sprite) {
 		angle_sprite_player = ft_normalize_angle(game->player->rotation_angle)
-		- atan2(sprites[i].y - game->player->y, sprites[i].x - game->player->x);
+		- atan2(game->sprite[i]->y - game->player->y, game->sprite[i]->x - game->player->x);
 
 		//make sure the angle is always between 0 and 180 degree - Create func
 		if (angle_sprite_player > PI)
@@ -81,29 +81,51 @@ void render_sprite_projection(t_game *game, t_img *img){
 			angle_sprite_player += TWO_PI;
 		angle_sprite_player = fabs(angle_sprite_player);
 		// end func
-		if (angle_sprite_player < (ft_degtorad(FOV_ANGLE) / 2)) {
+		//margem de erro para o sprite não sumir do nada
+		const float EPSILON = 0.2; //adicionar no header
+		if (angle_sprite_player < (ft_degtorad(FOV_ANGLE) / 2) + EPSILON) {
 			// create func
 
 			t_point start;
 			t_point end;
 
-			start.x = sprites[i].x;
-			start.y = sprites[i].y;
+			start.x = game->sprite[i]->x;
+			start.y = game->sprite[i]->y;
 			end.x = game->player->x;
 			end.y = game->player->y;
 
-			sprites[i].visible = TRUE;
-			sprites[i].angle = angle_sprite_player;
-			sprites[i].distance = ft_distance_between_points(start, end);
-			visible_sprites[num_visible_sprites] = sprites[i];
+			game->sprite[i]->visible = TRUE;
+			game->sprite[i]->angle = angle_sprite_player;
+			game->sprite[i]->distance = ft_distance_between_points(start, end);
+			visible_sprites[num_visible_sprites] = *game->sprite[i];
 			//end func
 			num_visible_sprites++;
 		}
 		else {
-			sprites[i].visible = FALSE;
+			game->sprite[i]->visible = FALSE;
 		}
 		i++;
 	}
+
+	// sort algo
+	int s;
+	int q;
+
+	s = 0;
+	q = 0;
+	while (s < num_visible_sprites - 1) {
+		q = s + 1;
+		while (q < num_visible_sprites) {
+			if (visible_sprites[s].distance < visible_sprites[q].distance) {
+				t_sprite temp = visible_sprites[s];
+				visible_sprites[s] = visible_sprites[q];
+				visible_sprites[q] = temp;
+			}
+			q++;
+		}
+		s++;
+	}
+	//end sort
 
 	// Rendering all the visible sprites - Create function
 	int w;
@@ -145,7 +167,7 @@ void render_sprite_projection(t_game *game, t_img *img){
 		// SpriteLeftX
 		float sprite_left_x;
 
-		sprite_left_x = (game->cubfile->width / 2) + sprite_screen_posx;
+		sprite_left_x = (game->cubfile->width / 2) + sprite_screen_posx - (sprite_width / 2);
 
 		// SpriteRightX
 		float sprite_right_x;
@@ -181,7 +203,8 @@ void render_sprite_projection(t_game *game, t_img *img){
 					* (game->sprite_tex->height / sprite_height);
 
 					color = ft_texture_byte(game->sprite_tex, texture);
-					if (color != (int)0xff000000)
+					if (sprite.distance < game->rays[(int)x]->distance
+					&& color != (int)0xff000000)
 						my_mlx_pixel_put(img, x, y, color);
 					// printf("%i\n", color);
 				}
@@ -209,7 +232,8 @@ int ft_render(t_game *game)
 	if (!ft_raycast(game))
 		return (0);
 	ft_draw_3d_map(game, new_img);
-	render_sprite_projection(game, new_img);
+	if (game->cubfile->map->num_sprite > 0)
+		render_sprite_projection(game, new_img);
 	if (g_minimap)
 		ft_draw_2d_map(game, new_img);
 	mlx_put_image_to_window(game->mlx_ptr, game->win_ptr, new_img->img, 0, 0);
@@ -249,7 +273,10 @@ get cubfile info"))
 	game->frame = ft_create_img(game);
 	ft_raycast(game);
 	ft_draw_3d_map(game, game->frame);
-	render_sprite_projection(game, game->frame);
+	if (game->cubfile->map->num_sprite > 0){
+		ft_get_all_sprites_pos(game);
+		render_sprite_projection(game, game->frame);
+	}
 	if (g_minimap)
 		ft_draw_2d_map(game, game->frame);
 	mlx_put_image_to_window(game->mlx_ptr, game->win_ptr, game->frame->img, 0, 0);

@@ -6,7 +6,7 @@
 /*   By: wbertoni <wbertoni@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/17 19:26:09 by wbertoni          #+#    #+#             */
-/*   Updated: 2021/03/07 10:13:19 by wbertoni         ###   ########.fr       */
+/*   Updated: 2021/03/09 22:14:07 by wbertoni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -144,7 +144,7 @@ void ft_change_minimap_status(void);
 t_img *ft_create_img(t_game *game);
 void ft_destroy_free_set_img(t_game *game, t_img *new_img);
 
-void render_map_sprites(t_img *img);
+void render_map_sprites(t_game *game, t_img *img);
 
 
 #endif
