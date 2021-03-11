@@ -6,7 +6,7 @@
 /*   By: wbertoni <wbertoni@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/22 10:41:23 by wbertoni          #+#    #+#             */
-/*   Updated: 2020/11/22 11:08:44 by wbertoni         ###   ########.fr       */
+/*   Updated: 2021/03/10 17:26:48 by wbertoni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,8 +44,8 @@ static void		calculate_offset_player(int keycode, t_game *game)
 		sin(game->player->rotation_angle + SOUTH) * move_step;
 	next_posit.x = game->player->x + offset.x;
 	next_posit.y = game->player->y + offset.y;
-	if (!(ft_has_wall(game, next_posit.x, next_posit.y, '1'))
-	&& !(ft_has_wall(game, next_posit.x, next_posit.y, '2')))
+	if (!(ft_has_wall(game, next_posit.x, next_posit.y, '1')))
+	// && !(ft_has_wall(game, next_posit.x, next_posit.y, '2')))
 	{
 		game->player->x = next_posit.x;
 		game->player->y = next_posit.y;

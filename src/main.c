@@ -14,8 +14,8 @@
 //Precisa fazer o free destes mallocs
 void ft_get_sprite_pos(t_game *game, int x, int y, int count){
 	game->sprite[count] = (t_sprite *)malloc(sizeof(t_sprite));
-	game->sprite[count]->x = x * TILE_SIZE - 1;
-	game->sprite[count]->y = y * TILE_SIZE - 1;
+	game->sprite[count]->x = x * TILE_SIZE;
+	game->sprite[count]->y = y * TILE_SIZE;
 	game->sprite[count]->visible = 0;
 }
 
@@ -167,7 +167,7 @@ void render_sprite_projection(t_game *game, t_img *img){
 		// SpriteLeftX
 		float sprite_left_x;
 
-		sprite_left_x = (game->cubfile->width / 2) + sprite_screen_posx - (sprite_width / 2);
+		sprite_left_x = (game->cubfile->width / 2) + sprite_screen_posx;
 
 		// SpriteRightX
 		float sprite_right_x;
@@ -203,8 +203,9 @@ void render_sprite_projection(t_game *game, t_img *img){
 					* (game->sprite_tex->height / sprite_height);
 
 					color = ft_texture_byte(game->sprite_tex, texture);
-					if (sprite.distance < game->rays[(int)x]->distance
-					&& color != (int)0xff000000)
+					// if (sprite.distance < game->rays[(int)x]->distance
+					// && color != (int)0xff000000)
+					if (color != (int)0xff000000)
 						my_mlx_pixel_put(img, x, y, color);
 					// printf("%i\n", color);
 				}
@@ -217,6 +218,7 @@ void render_sprite_projection(t_game *game, t_img *img){
 	}
 
 	// end func
+	printf("%f\n", game->player->rotation_angle);
 
 }
 //end sprite
