@@ -36,6 +36,7 @@ SRCS = 	$(DIR_SRC)/cubfile_reader/gnl/get_next_line.c \
 		$(DIR_SRC)/ft_sprite_1.c \
 		$(DIR_SRC)/ft_sprite_2.c \
 		$(DIR_SRC)/ft_save_bmp.c \
+		$(DIR_SRC)/ft_check_args.c \
 		$(DIR_SRC)/main.c
 
 NAME = cub3D
