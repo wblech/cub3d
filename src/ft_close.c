@@ -6,7 +6,7 @@
 /*   By: wbertoni <wbertoni@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/04 17:44:26 by wbertoni          #+#    #+#             */
-/*   Updated: 2021/03/28 13:47:44 by wbertoni         ###   ########.fr       */
+/*   Updated: 2021/03/28 17:58:37 by wbertoni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,8 @@ static void ft_del_sprite(t_game *game)
 
 int			ft_close(t_game *game)
 {
-	mlx_destroy_window(game->mlx_ptr, game->win_ptr);
+	if (!game->bmp)
+		mlx_destroy_window(game->mlx_ptr, game->win_ptr);
 	if (game->rays != NULL)
 		ft_del_rays(game);
 	ft_del_sprite(game);

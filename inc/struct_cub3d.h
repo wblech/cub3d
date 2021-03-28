@@ -6,7 +6,7 @@
 /*   By: wbertoni <wbertoni@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/24 15:02:33 by wbertoni          #+#    #+#             */
-/*   Updated: 2021/03/28 14:56:14 by wbertoni         ###   ########.fr       */
+/*   Updated: 2021/03/28 18:00:38 by wbertoni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,6 +82,7 @@ typedef struct s_game
 	void *mlx_ptr;
 	void *win_ptr;
 	int ray_width;
+	int bmp;
 	t_player *player;
 	t_img *frame;
 	t_ray **rays;
