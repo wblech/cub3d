@@ -6,7 +6,7 @@
 /*   By: wbertoni <wbertoni@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/24 15:02:33 by wbertoni          #+#    #+#             */
-/*   Updated: 2021/03/06 12:10:36 by wbertoni         ###   ########.fr       */
+/*   Updated: 2021/03/28 14:56:14 by wbertoni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,14 @@ typedef struct s_sprite
 	float distance;
 	float angle;
 	int visible;
+	float height;
+	float width;
+	float top_y;
+	float bottom_y;
+	float angle_3d;
+	float screen_posx;
+	float left_x;
+	float right_x;
 } t_sprite;
 
 typedef struct	s_img {

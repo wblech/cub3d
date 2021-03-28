@@ -6,7 +6,7 @@
 /*   By: wbertoni <wbertoni@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/04 17:44:26 by wbertoni          #+#    #+#             */
-/*   Updated: 2021/03/06 09:54:40 by wbertoni         ###   ########.fr       */
+/*   Updated: 2021/03/28 13:47:44 by wbertoni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,25 +44,25 @@ static void	ft_del_texture_orchestrator(t_game *game)
 	ft_del_texture(game->mlx_ptr, game->sprite_tex);
 }
 
-// static void ft_del_sprite(t_game *game)
-// {
-// 	int i;
+static void ft_del_sprite(t_game *game)
+{
+	int i;
 
-// 	i = 0;
-// 	while (i < game->cubfile->map->num_sprite)
-// 	{
-// 		free(game->sprite[i]);
-// 		i++;
-// 	}
-// 	free(game->sprite);
-// }
+	i = 0;
+	while (i < game->cubfile->map->num_sprite)
+	{
+		free(game->sprite[i]);
+		i++;
+	}
+	free(game->sprite);
+}
 
 int			ft_close(t_game *game)
 {
 	mlx_destroy_window(game->mlx_ptr, game->win_ptr);
 	if (game->rays != NULL)
 		ft_del_rays(game);
-	// ft_del_sprite(game);
+	ft_del_sprite(game);
 	ft_del_file(game->cubfile);
 	ft_del_texture_orchestrator(game);
 	mlx_destroy_image(game->mlx_ptr, game->frame->img);
