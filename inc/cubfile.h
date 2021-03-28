@@ -6,7 +6,7 @@
 /*   By: wbertoni <wbertoni@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/12 11:53:28 by wbertoni          #+#    #+#             */
-/*   Updated: 2021/03/28 18:55:29 by wbertoni         ###   ########.fr       */
+/*   Updated: 2021/03/28 19:11:59 by wbertoni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,5 +94,6 @@ void			ft_del_file(t_file *file);
 void			ft_del_map(t_map *map);
 void			ft_del_info(char **info);
 void			ft_putstr(char *str);
+t_error_file	ft_check_cubfile(t_file *file);
 
 #endif
