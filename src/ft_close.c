@@ -6,7 +6,7 @@
 /*   By: wbertoni <wbertoni@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/04 17:44:26 by wbertoni          #+#    #+#             */
-/*   Updated: 2021/03/28 17:58:37 by wbertoni         ###   ########.fr       */
+/*   Updated: 2021/03/28 18:21:08 by wbertoni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ static void	ft_del_texture_orchestrator(t_game *game)
 	ft_del_texture(game->mlx_ptr, game->sprite_tex);
 }
 
-static void ft_del_sprite(t_game *game)
+static void	ft_del_sprite(t_game *game)
 {
 	int i;
 
