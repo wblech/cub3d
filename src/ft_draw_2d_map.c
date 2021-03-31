@@ -6,7 +6,7 @@
 /*   By: wbertoni <wbertoni@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/22 11:36:28 by wbertoni          #+#    #+#             */
-/*   Updated: 2020/12/26 12:59:18 by wbertoni         ###   ########.fr       */
+/*   Updated: 2021/03/28 18:24:59 by wbertoni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,11 +26,11 @@ static void	ft_create_2d_map(t_img *img, t_map *map)
 		while (i_col < map->num_col)
 		{
 			start = ft_create_point(
-				MINIMAP_SCALE_FACTOR * i_col * g_tile_size,
-				MINIMAP_SCALE_FACTOR * i_row * g_tile_size,
+				MINIMAP_SCALE_FACTOR * i_col * TILE_SIZE,
+				MINIMAP_SCALE_FACTOR * i_row * TILE_SIZE,
 				0x00000000);
-			size = ft_create_point(MINIMAP_SCALE_FACTOR * g_tile_size,
-								MINIMAP_SCALE_FACTOR * g_tile_size,
+			size = ft_create_point(MINIMAP_SCALE_FACTOR * TILE_SIZE,
+								MINIMAP_SCALE_FACTOR * TILE_SIZE,
 								(map->map[i_row][i_col] == '1')
 								? 0x00000000 : 0x00ffffff);
 			ft_rect_filled_borderless(img, start, size);
@@ -57,9 +57,9 @@ static void	ft_render_player_2d(t_player *player, t_img *img)
 
 int			ft_draw_2d_map(t_game *game, t_img *img)
 {
-	t_point		start;
-	t_point		end;
-	int			i;
+	t_point	start;
+	t_point	end;
+	int		i;
 
 	i = 0;
 	start = ft_create_point(
@@ -76,5 +76,6 @@ int			ft_draw_2d_map(t_game *game, t_img *img)
 		ft_line_dda(img, start, end);
 		i++;
 	}
+	ft_render_map_sprites(game, img);
 	return (TRUE);
 }

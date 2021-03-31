@@ -6,19 +6,19 @@
 /*   By: wbertoni <wbertoni@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/30 18:54:25 by wbertoni          #+#    #+#             */
-/*   Updated: 2020/12/26 13:48:20 by wbertoni         ###   ########.fr       */
+/*   Updated: 2021/01/04 18:24:06 by wbertoni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-static	t_point	ft_cast_ray(t_game *game, t_hrc join, float ray_angle,
+static t_point		ft_cast_ray(t_game *game, t_hrc join, float ray_angle,
 							int is_vert)
 {
-	float		next_x;
-	float		next_y;
-	float		x_to_check;
-	float		y_to_check;
+	float next_x;
+	float next_y;
+	float x_to_check;
+	float y_to_check;
 
 	next_x = join.intercept.x;
 	next_y = join.intercept.y;
@@ -40,41 +40,41 @@ static	t_point	ft_cast_ray(t_game *game, t_hrc join, float ray_angle,
 	return (ft_create_point(0, 0, 0));
 }
 
-static	t_point	ft_horz_intercept(t_game *game, float ray_angle)
+static t_point		ft_horz_intercept(t_game *game, float ray_angle)
 {
 	t_hrc join;
 
-	join.intercept.y = floor(game->player->y / g_tile_size) * g_tile_size;
-	join.intercept.y += ft_calc_facing(ray_angle, down) ? g_tile_size : 0;
+	join.intercept.y = floor(game->player->y / TILE_SIZE) * TILE_SIZE;
+	join.intercept.y += ft_calc_facing(ray_angle, down) ? TILE_SIZE : 0;
 	join.intercept.x = game->player->x + (join.intercept.y - game->player->y)
 	/ tan(ray_angle);
-	join.step.y = g_tile_size;
+	join.step.y = TILE_SIZE;
 	join.step.y *= ft_calc_facing(ray_angle, up) ? -1 : 1;
-	join.step.x = g_tile_size / tan(ray_angle);
+	join.step.x = TILE_SIZE / tan(ray_angle);
 	join.step.x *= (ft_calc_facing(ray_angle, left) && join.step.x > 0) ? -1
-	: 1;
+																		: 1;
 	join.step.x *= (ft_calc_facing(ray_angle, right) && join.step.x < 0) ? -1
-	: 1;
+																		: 1;
 	return (ft_cast_ray(game, join, ray_angle, 0));
 }
 
-static	t_point	ft_vert_intercept(t_game *game, float ray_angle)
+static t_point		ft_vert_intercept(t_game *game, float ray_angle)
 {
 	t_hrc join;
 
-	join.intercept.x = floor(game->player->x / g_tile_size) * g_tile_size;
-	join.intercept.x += ft_calc_facing(ray_angle, right) ? g_tile_size : 0;
+	join.intercept.x = floor(game->player->x / TILE_SIZE) * TILE_SIZE;
+	join.intercept.x += ft_calc_facing(ray_angle, right) ? TILE_SIZE : 0;
 	join.intercept.y = game->player->y + (join.intercept.x - game->player->x)
 	* tan(ray_angle);
-	join.step.x = g_tile_size;
+	join.step.x = TILE_SIZE;
 	join.step.x *= ft_calc_facing(ray_angle, left) ? -1 : 1;
-	join.step.y = g_tile_size * tan(ray_angle);
+	join.step.y = TILE_SIZE * tan(ray_angle);
 	join.step.y *= ft_calc_facing(ray_angle, up) && join.step.y > 0 ? -1 : 1;
 	join.step.y *= ft_calc_facing(ray_angle, down) && join.step.y < 0 ? -1 : 1;
 	return (ft_cast_ray(game, join, ray_angle, 1));
 }
 
-static	t_ray	*ft_create_ray(t_game *game, t_point hint, t_point vint)
+static t_ray		*ft_create_ray(t_game *game, t_point hint, t_point vint)
 {
 	t_ray		*ray;
 	t_point		start;
@@ -94,7 +94,7 @@ static	t_ray	*ft_create_ray(t_game *game, t_point hint, t_point vint)
 	return (ray);
 }
 
-int				ft_raycast(t_game *game)
+int					ft_raycast(t_game *game)
 {
 	float	ray_angle;
 	float	num_ray;
@@ -112,7 +112,7 @@ int				ft_raycast(t_game *game)
 		ray_angle = ft_normalize_angle(ray_angle);
 		game->ray_width = i;
 		rays[i] = ft_create_ray(game, ft_horz_intercept(game, ray_angle),
-		ft_vert_intercept(game, ray_angle));
+								ft_vert_intercept(game, ray_angle));
 		if (!rays[i])
 			return (0);
 		rays[i]->ray_angle = ray_angle;

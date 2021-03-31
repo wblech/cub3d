@@ -6,7 +6,7 @@
 /*   By: wbertoni <wbertoni@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/22 10:41:23 by wbertoni          #+#    #+#             */
-/*   Updated: 2020/11/22 11:08:44 by wbertoni         ###   ########.fr       */
+/*   Updated: 2021/03/28 18:26:32 by wbertoni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,9 +67,9 @@ int				new_position_player(int keycode, t_game *game)
 
 int				ft_get_player_position(t_game *game)
 {
-	int cardinal;
+	int cardi;
 
-	cardinal = game->cubfile->map->initial_pl_cardinal;
+	cardi = game->cubfile->map->initial_pl_cardinal;
 	game->player = (t_player *)malloc(sizeof(t_player));
 	if (ft_get_error(&ft_is_pointer_null, game->player, "Error:\nInitialiasing\
 player struct"))
@@ -80,7 +80,7 @@ player struct"))
 	game->player->height = 5;
 	game->player->turn_direction = 0;
 	game->player->walk_direction = 0;
-	game->player->rotation_angle = ft_get_cardinal(cardinal);
+	game->player->rotation_angle = ft_normalize_angle(ft_get_cardinal(cardi));
 	if (game->player->rotation_angle < 0)
 		return (FALSE);
 	game->player->move_speed = 5;

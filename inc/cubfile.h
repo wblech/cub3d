@@ -6,7 +6,7 @@
 /*   By: wbertoni <wbertoni@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/12 11:53:28 by wbertoni          #+#    #+#             */
-/*   Updated: 2020/11/02 13:14:36 by wbertoni         ###   ########.fr       */
+/*   Updated: 2021/03/28 19:11:59 by wbertoni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,10 +22,8 @@
 # define FALSE 0
 
 # ifndef TILE_SIZE
-#  define TILE_SIZE 32
+#  define TILE_SIZE 64
 # endif
-
-int g_tile_size;
 
 typedef struct	s_map
 {
@@ -77,6 +75,7 @@ typedef enum	e_error_file
 	enocolor,
 	enomap,
 	eplayer,
+	espace,
 }				t_error_file;
 
 void			ft_print_error_cubfile(t_error_file error);
@@ -95,5 +94,6 @@ void			ft_del_file(t_file *file);
 void			ft_del_map(t_map *map);
 void			ft_del_info(char **info);
 void			ft_putstr(char *str);
+t_error_file	ft_check_cubfile(t_file *file);
 
 #endif

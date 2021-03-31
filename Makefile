@@ -14,6 +14,7 @@ SRCS = 	$(DIR_SRC)/cubfile_reader/gnl/get_next_line.c \
 		$(DIR_SRC)/cubfile_reader/ft_cubfile.c \
 		$(DIR_SRC)/cubfile_reader/ft_cubfile_utils.c \
 		$(DIR_SRC)/cubfile_reader/ft_del_file.c \
+		$(DIR_SRC)/cubfile_reader/ft_cubfile_utils_2.c \
 		$(DIR_SRC)/my_mlx_pixel_put.c \
 		$(DIR_SRC)/ft_create_point.c \
 		$(DIR_SRC)/ft_quadrilateral.c \
@@ -24,20 +25,35 @@ SRCS = 	$(DIR_SRC)/cubfile_reader/gnl/get_next_line.c \
 		$(DIR_SRC)/ft_helper_angle.c \
 		$(DIR_SRC)/ft_collision.c \
 		$(DIR_SRC)/ft_draw_2d_map.c \
+		$(DIR_SRC)/ft_draw_3d_map.c \
 		$(DIR_SRC)/ft_helper_raycasting.c \
 		$(DIR_SRC)/ft_raycast.c \
+		$(DIR_SRC)/ft_texture.c \
+		$(DIR_SRC)/ft_get_all_textures.c \
+		$(DIR_SRC)/ft_update_release_key.c \
+		$(DIR_SRC)/ft_close.c \
+		$(DIR_SRC)/ft_2d_helper.c \
+		$(DIR_SRC)/ft_create_destroy_img.c \
+		$(DIR_SRC)/ft_sprite_1.c \
+		$(DIR_SRC)/ft_sprite_2.c \
+		$(DIR_SRC)/ft_save_bmp.c \
+		$(DIR_SRC)/ft_check_args.c \
 		$(DIR_SRC)/main.c
 
 NAME = cub3D
 OBJ = $(patsubst $(DIR_SRC)/%.c, $(DIR_OBJ)/%.o, $(SRCS))
 CC = clang
 CFLAGS = -Wall -Werror -Wextra -g -fsanitize=address
-LFLAGS = -lmlx -lm -lX11 -lXext -lbsd -lft
+LFLAGS =	-lbsd -lm -lX11 -lXext \
+			-L ./$(DIR_LIBFT) -lft \
+			-L ./$(DIR_MLX) -lmlx
 AR = ar -rc
 RM = rm -f
 LIBFT = $(DIR_LIBFT)/libft.a
+MLX = $(DIR_MLX)/libmlx.a
 
-$(NAME):	$(OBJ) $(LIBFT)
+
+$(NAME):	$(MLX) $(OBJ) $(LIBFT)
 			$(CC) $(CFLAGS) $(OBJ) -I$(DIR_INC) -I$(DIR_MLX) -L$(DIR_MLX) -L$(DIR_LIBFT) $(LFLAGS) -o $@
 
 $(DIR_OBJ)/%.o:	$(DIR_SRC)/%.c
@@ -49,15 +65,21 @@ $(DIR_OBJ)/%.o:	$(DIR_SRC)/%.c
 $(LIBFT):
 			$(MAKE) -C $(DIR_LIBFT)
 
+$(MLX):
+			$(MAKE) -C $(DIR_MLX)
+
 all:	$(NAME)
 
 clean:
 	$(MAKE) -C $(DIR_LIBFT) clean
+	$(MAKE) -C $(DIR_MLX) clean
 	$(RM) $(OBJ)
+
 
 fclean:	clean
 		$(MAKE) -C $(DIR_LIBFT) fclean
 		$(RM) $(NAME)
+		$(RM) *.bmp
 
 re:	fclean all
 

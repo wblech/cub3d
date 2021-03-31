@@ -6,7 +6,7 @@
 /*   By: wbertoni <wbertoni@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/12 11:06:00 by wbertoni          #+#    #+#             */
-/*   Updated: 2020/10/17 19:05:16 by wbertoni         ###   ########.fr       */
+/*   Updated: 2021/01/12 18:57:01 by wbertoni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,8 @@ void	ft_del_map(t_map *map)
 				free(map->map[i]);
 			i++;
 		}
-		free(map->map);
+		if (map->map != NULL)
+			free(map->map);
 		free(map);
 	}
 }

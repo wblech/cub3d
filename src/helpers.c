@@ -6,7 +6,7 @@
 /*   By: wbertoni <wbertoni@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/22 10:52:06 by wbertoni          #+#    #+#             */
-/*   Updated: 2020/12/26 13:57:43 by wbertoni         ###   ########.fr       */
+/*   Updated: 2021/03/28 15:38:11 by wbertoni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,8 +29,8 @@ int		ft_get_error(int (*func)(void *), void *a, char *msg)
 
 float	ft_distance_between_points(t_point start, t_point end)
 {
-	return (sqrt(((end.y - start.y) * (end.y - start.y))
-	+ ((end.x - start.x) * (end.x - start.x))));
+	return (sqrt((end.y - start.y) * (end.y - start.y)
+	+ (end.x - start.x) * (end.x - start.x)));
 }
 
 int		ft_calc_facing(float ray_angle, t_face face)
@@ -53,4 +53,29 @@ int		ft_calc_facing(float ray_angle, t_face face)
 	if (face == left)
 		return (is_facing_left);
 	return (0);
+}
+
+void	ft_sort_sprites(int num_visible_sprites, t_sprite *visible_sprites)
+{
+	int			s;
+	int			q;
+	t_sprite	temp;
+
+	s = 0;
+	q = 0;
+	while (s < num_visible_sprites - 1)
+	{
+		q = s + 1;
+		while (q < num_visible_sprites)
+		{
+			if (visible_sprites[s].distance < visible_sprites[q].distance)
+			{
+				temp = visible_sprites[s];
+				visible_sprites[s] = visible_sprites[q];
+				visible_sprites[q] = temp;
+			}
+			q++;
+		}
+		s++;
+	}
 }
