@@ -6,7 +6,7 @@
 /*   By: wbertoni <wbertoni@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/08 17:00:22 by wbertoni          #+#    #+#             */
-/*   Updated: 2021/03/28 19:13:05 by wbertoni         ###   ########.fr       */
+/*   Updated: 2021/03/31 19:38:51 by wbertoni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,8 @@ void			ft_print_error_cubfile(t_error_file error)
 {
 	if (error == eallow)
 		ft_putstr("Error\nSymbols allowed for map, without quote,\
-' ', '0', '1', '2'. The map inside cubfile must be at the end\n");
+' ', '0', '1', '2'. The map inside cubfile must be at the end. Don't use\
+space between number in the ceilin or floor values\n");
 	else if (error == enull)
 		ft_putstr("Error\nMalloc error\n");
 	else if (error == ewall)

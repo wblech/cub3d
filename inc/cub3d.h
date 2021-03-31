@@ -6,7 +6,7 @@
 /*   By: wbertoni <wbertoni@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/17 19:26:09 by wbertoni          #+#    #+#             */
-/*   Updated: 2021/03/28 18:49:12 by wbertoni         ###   ########.fr       */
+/*   Updated: 2021/03/31 17:30:13 by wbertoni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -132,6 +132,7 @@ int			ft_update_release(int keycode, t_game *game);
 ** ft_close.c
 */
 int			ft_close(t_game *game);
+void		ft_del_texture_orchestrator(t_game *game);
 
 /*
 ** ft_2d_helper.c

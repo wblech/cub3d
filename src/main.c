@@ -6,7 +6,7 @@
 /*   By: wbertoni <wbertoni@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/28 18:29:49 by wbertoni          #+#    #+#             */
-/*   Updated: 2021/03/28 18:39:13 by wbertoni         ###   ########.fr       */
+/*   Updated: 2021/03/31 19:11:12 by wbertoni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,12 @@ int			ft_initialize_window(t_game *game)
 mlx_init"))
 		return (FALSE);
 	game->rays = NULL;
+	game->north = NULL;
+	game->south = NULL;
+	game->west = NULL;
+	game->east = NULL;
+	game->sprite = NULL;
+	game->frame = NULL;
 	return (TRUE);
 }
 

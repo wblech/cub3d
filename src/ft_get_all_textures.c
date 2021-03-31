@@ -6,14 +6,48 @@
 /*   By: wbertoni <wbertoni@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/28 19:01:52 by wbertoni          #+#    #+#             */
-/*   Updated: 2021/03/06 09:51:47 by wbertoni         ###   ########.fr       */
+/*   Updated: 2021/03/31 19:10:54 by wbertoni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
+int	ft_check_texture_exists(char *path)
+{
+	int fopen;
+
+	fopen = open(path, O_RDONLY);
+	if (fopen < 0)
+	{
+		perror("Error\n");
+		ft_putstr(path);
+		return (FALSE);
+	}
+	close(fopen);
+	return (TRUE);
+}
+
+int	ft_orchestrator_check_file(t_game *game)
+{
+	if (!ft_check_texture_exists("./img/eagle.xpm"))
+		return (FALSE);
+	if (!ft_check_texture_exists(game->cubfile->north))
+		return (FALSE);
+	if (!ft_check_texture_exists(game->cubfile->south))
+		return (FALSE);
+	if (!ft_check_texture_exists(game->cubfile->east))
+		return (FALSE);
+	if (!ft_check_texture_exists(game->cubfile->west))
+		return (FALSE);
+	if (!ft_check_texture_exists(game->cubfile->sprite))
+		return (FALSE);
+	return (TRUE);
+}
+
 int	ft_get_all_textures(t_game *game)
 {
+	if (!ft_orchestrator_check_file(game))
+		return (FALSE);
 	game->tex_def = ft_create_texture(game->mlx_ptr, "./img/eagle.xpm");
 	game->north = ft_create_texture(game->mlx_ptr, game->cubfile->north);
 	game->south = ft_create_texture(game->mlx_ptr, game->cubfile->south);

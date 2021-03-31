@@ -44,12 +44,16 @@ NAME = cub3D
 OBJ = $(patsubst $(DIR_SRC)/%.c, $(DIR_OBJ)/%.o, $(SRCS))
 CC = clang
 CFLAGS = -Wall -Werror -Wextra -g -fsanitize=address
-LFLAGS = -lmlx -lm -lX11 -lXext -lbsd -lft
+LFLAGS =	-lbsd -lm -lX11 -lXext \
+			-L ./$(DIR_LIBFT) -lft \
+			-L ./$(DIR_MLX) -lmlx
 AR = ar -rc
 RM = rm -f
 LIBFT = $(DIR_LIBFT)/libft.a
+MLX = $(DIR_MLX)/libmlx.a
 
-$(NAME):	$(OBJ) $(LIBFT)
+
+$(NAME):	$(MLX) $(OBJ) $(LIBFT)
 			$(CC) $(CFLAGS) $(OBJ) -I$(DIR_INC) -I$(DIR_MLX) -L$(DIR_MLX) -L$(DIR_LIBFT) $(LFLAGS) -o $@
 
 $(DIR_OBJ)/%.o:	$(DIR_SRC)/%.c
@@ -61,15 +65,21 @@ $(DIR_OBJ)/%.o:	$(DIR_SRC)/%.c
 $(LIBFT):
 			$(MAKE) -C $(DIR_LIBFT)
 
+$(MLX):
+			$(MAKE) -C $(DIR_MLX)
+
 all:	$(NAME)
 
 clean:
 	$(MAKE) -C $(DIR_LIBFT) clean
+	$(MAKE) -C $(DIR_MLX) clean
 	$(RM) $(OBJ)
+
 
 fclean:	clean
 		$(MAKE) -C $(DIR_LIBFT) fclean
 		$(RM) $(NAME)
+		$(RM) *.bmp
 
 re:	fclean all
 

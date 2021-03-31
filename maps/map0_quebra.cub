@@ -1,6 +1,6 @@
 
 
-F 		200  ,	200  , 80
+F 	200,200,80
 S  ./text/wolf/pillar.xpm
 
 SO 	./text/wolf/eagle.xpm

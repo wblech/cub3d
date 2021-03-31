@@ -6,7 +6,7 @@
 /*   By: wbertoni <wbertoni@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/28 19:01:23 by wbertoni          #+#    #+#             */
-/*   Updated: 2021/03/28 18:28:13 by wbertoni         ###   ########.fr       */
+/*   Updated: 2021/03/30 19:38:14 by wbertoni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,8 @@ t_tex		*ft_create_texture(void *mlx_ptr, char *path)
 		return (NULL);
 	img->img = mlx_xpm_file_to_image(mlx_ptr, path, &texture->width,
 	&texture->height);
+	if (!img->img)
+		return (NULL);
 	img->addr = mlx_get_data_addr(img->img, &img->bits_per_pixel,
 	&img->line_length, &img->endian);
 	texture->img = img;
