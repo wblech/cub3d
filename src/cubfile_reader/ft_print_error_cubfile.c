@@ -6,7 +6,7 @@
 /*   By: wbertoni <wbertoni@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/08 17:00:22 by wbertoni          #+#    #+#             */
-/*   Updated: 2021/03/31 19:38:51 by wbertoni         ###   ########.fr       */
+/*   Updated: 2021/04/01 13:39:01 by wbertoni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,8 @@ static void		ft_print_error_cubfile_norminette(t_error_file error)
 	else if (error == espace)
 		ft_putstr("Error:\nOnly spaces (/' /') are allowed to separate \
 		data inside cubfile\n");
+	else if (error == erepeat)
+		ft_putstr("Error:\nThere are duplicated flags at cubfile\n");
 }
 
 void			ft_print_error_cubfile(t_error_file error)

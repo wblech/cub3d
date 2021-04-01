@@ -6,7 +6,7 @@
 /*   By: wbertoni <wbertoni@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/04 17:44:26 by wbertoni          #+#    #+#             */
-/*   Updated: 2021/03/31 19:41:02 by wbertoni         ###   ########.fr       */
+/*   Updated: 2021/04/01 16:57:47 by wbertoni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,10 @@ int			ft_close(t_game *game)
 	ft_del_file(game->cubfile);
 	ft_del_texture_orchestrator(game);
 	if (game->frame != NULL)
+	{
 		mlx_destroy_image(game->mlx_ptr, game->frame->img);
+		free(game->frame);
+	}
 	free(game->player);
 	free(game);
 	exit(0);
