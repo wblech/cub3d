@@ -6,7 +6,7 @@
 /*   By: wbertoni <wbertoni@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/05 18:34:40 by wbertoni          #+#    #+#             */
-/*   Updated: 2020/10/08 16:33:20 by wbertoni         ###   ########.fr       */
+/*   Updated: 2021/04/02 10:26:58 by wbertoni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -115,6 +115,8 @@ t_error_file	ft_check_map_cubfile(t_map *map)
 	if (!ft_check_map_cubfile_symbol(map))
 		return (eallow);
 	if (!ft_check_map_cubfile_border(map))
+		return (ewall);
+	else if (!ft_check_diagonal_map_surronded(map))
 		return (ewall);
 	return (noerror);
 }

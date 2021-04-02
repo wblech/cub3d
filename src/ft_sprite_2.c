@@ -6,7 +6,7 @@
 /*   By: wbertoni <wbertoni@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/28 13:45:22 by wbertoni          #+#    #+#             */
-/*   Updated: 2021/03/28 15:51:05 by wbertoni         ###   ########.fr       */
+/*   Updated: 2021/04/02 09:47:59 by wbertoni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,7 @@ t_point pos)
 			* (game->sprite_tex->height / sprite.height);
 			color = ft_texture_byte(game->sprite_tex, texture);
 			if (sprite.distance < game->rays[(int)pos.x]->distance
-			&& color != (int)0xff000000)
+			&& color != (int)0xff000000 && color)
 				my_mlx_pixel_put(img, pos.x, pos.y, color);
 		}
 		pos.y++;

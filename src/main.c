@@ -6,7 +6,7 @@
 /*   By: wbertoni <wbertoni@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/28 18:29:49 by wbertoni          #+#    #+#             */
-/*   Updated: 2021/03/31 19:11:12 by wbertoni         ###   ########.fr       */
+/*   Updated: 2021/04/02 11:54:06 by wbertoni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,7 @@ int			ft_initialize_window(t_game *game)
 	if (ft_get_error(&ft_is_pointer_null, game->mlx_ptr, "Error:\nInitialiasing\
 mlx_init"))
 		return (FALSE);
+	ft_check_resolution(game);
 	game->rays = NULL;
 	game->north = NULL;
 	game->south = NULL;
@@ -75,15 +76,10 @@ static	int	ft_start_game_or_draw_bmp(t_game *game, int argc)
 int			ft_setup(t_game *game, char *path, int argc)
 {
 	g_minimap = FALSE;
-	game->cubfile = ft_cubfile(path);
-	if (ft_get_error(&ft_is_pointer_null, game->cubfile, "Error:\nCouldn´t \
-get cubfile info"))
-		return (FALSE);
-	if (!ft_initialize_window(game) || !ft_get_player_position(game))
-		return (FALSE);
-	if (!ft_get_all_textures(game))
+	if (!ft_setup_norminette(game, path))
 		return (FALSE);
 	game->frame = ft_create_img(game);
+	ft_create_ray_once(game);
 	ft_raycast(game);
 	ft_draw_3d_map(game, game->frame);
 	if (game->cubfile->map->num_sprite > 0)

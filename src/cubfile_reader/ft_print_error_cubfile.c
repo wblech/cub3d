@@ -6,7 +6,7 @@
 /*   By: wbertoni <wbertoni@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/08 17:00:22 by wbertoni          #+#    #+#             */
-/*   Updated: 2021/04/01 13:39:01 by wbertoni         ###   ########.fr       */
+/*   Updated: 2021/04/02 09:29:20 by wbertoni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,12 @@ static void		ft_print_error_cubfile_norminette(t_error_file error)
 		data inside cubfile\n");
 	else if (error == erepeat)
 		ft_putstr("Error:\nThere are duplicated flags at cubfile\n");
+	else if (error == enores)
+		ft_putstr("Error:\nCouldn´t find  resolution information in cubfile\n");
+	else if (error == epldoubled)
+		ft_putstr("Error:\nMore than one player in the map\n");
+	else if (error == novalidkey)
+		ft_putstr("Error:\nNo valid key in cubfile\n");
 }
 
 void			ft_print_error_cubfile(t_error_file error)
@@ -71,8 +77,6 @@ numbers\n");
 	else if (error == ergbsize)
 		ft_putstr("Error:\nRGB color must have 3 values from 0 - 255 separated \
 by a ','\n");
-	else if (error == enores)
-		ft_putstr("Error:\nCouldn´t find  resolution information in cubfile\n");
 	else
 		ft_print_error_cubfile_norminette(error);
 }

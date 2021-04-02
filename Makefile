@@ -15,6 +15,11 @@ SRCS = 	$(DIR_SRC)/cubfile_reader/gnl/get_next_line.c \
 		$(DIR_SRC)/cubfile_reader/ft_cubfile_utils.c \
 		$(DIR_SRC)/cubfile_reader/ft_del_file.c \
 		$(DIR_SRC)/cubfile_reader/ft_cubfile_utils_2.c \
+		$(DIR_SRC)/cubfile_reader/ft_get_info_value_2.c \
+		$(DIR_SRC)/cubfile_reader/ft_is_player_doubled.c \
+		$(DIR_SRC)/cubfile_reader/ft_check_ceiling_floor.c \
+		$(DIR_SRC)/cubfile_reader/ft_set_player_position.c \
+		$(DIR_SRC)/cubfile_reader/ft_get_size.c \
 		$(DIR_SRC)/my_mlx_pixel_put.c \
 		$(DIR_SRC)/ft_create_point.c \
 		$(DIR_SRC)/ft_quadrilateral.c \
@@ -38,12 +43,14 @@ SRCS = 	$(DIR_SRC)/cubfile_reader/gnl/get_next_line.c \
 		$(DIR_SRC)/ft_sprite_2.c \
 		$(DIR_SRC)/ft_save_bmp.c \
 		$(DIR_SRC)/ft_check_args.c \
+		$(DIR_SRC)/ft_check_resolution.c \
+		$(DIR_SRC)/ft_create_ray_once.c \
 		$(DIR_SRC)/main.c
 
 NAME = cub3D
 OBJ = $(patsubst $(DIR_SRC)/%.c, $(DIR_OBJ)/%.o, $(SRCS))
 CC = clang
-CFLAGS = -Wall -Werror -Wextra -g 
+CFLAGS = -Wall -Werror -Wextra -g -fsanitize=address
 LFLAGS =	-lbsd -lm -lX11 -lXext \
 			-L ./$(DIR_LIBFT) -lft \
 			-L ./$(DIR_MLX) -lmlx

@@ -6,7 +6,7 @@
 /*   By: wbertoni <wbertoni@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/12 11:53:28 by wbertoni          #+#    #+#             */
-/*   Updated: 2021/04/01 09:01:48 by wbertoni         ###   ########.fr       */
+/*   Updated: 2021/04/02 10:27:57 by wbertoni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,7 +76,9 @@ typedef enum	e_error_file
 	enomap,
 	eplayer,
 	espace,
-	erepeat
+	erepeat,
+	epldoubled,
+	novalidkey
 }				t_error_file;
 
 void			ft_print_error_cubfile(t_error_file error);
@@ -96,5 +98,11 @@ void			ft_del_map(t_map *map);
 void			ft_del_info(char **info);
 void			ft_putstr(char *str);
 t_error_file	ft_check_cubfile(t_file *file);
+t_error_file	ft_get_texture_path_norminette(t_file *file, char **info);
+t_error_file	ft_is_player_doubled(t_file *file);
+int				ft_check_ceiling_floor(char **rgb);
+void			ft_set_player_position(t_file *file, int i, int j);
+int				ft_get_size(char **str);
+int				ft_check_diagonal_map_surronded(t_map *map);
 
 #endif

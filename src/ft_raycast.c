@@ -6,7 +6,7 @@
 /*   By: wbertoni <wbertoni@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/30 18:54:25 by wbertoni          #+#    #+#             */
-/*   Updated: 2021/01/04 18:24:06 by wbertoni         ###   ########.fr       */
+/*   Updated: 2021/04/02 11:56:45 by wbertoni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,51 +74,40 @@ static t_point		ft_vert_intercept(t_game *game, float ray_angle)
 	return (ft_cast_ray(game, join, ray_angle, 1));
 }
 
-static t_ray		*ft_create_ray(t_game *game, t_point hint, t_point vint)
+void				ft_create_ray(t_game *game, int num_ray, t_point hint,
+t_point vint)
 {
-	t_ray		*ray;
 	t_point		start;
 	float		disth;
 	float		distv;
 
 	start = ft_create_point(game->player->x, game->player->y, 0);
-	ray = (t_ray *)malloc(sizeof(t_ray));
-	if (!ray)
-		return (NULL);
 	disth = hint.color ? ft_distance_between_points(start, hint) : INT_MAX;
 	distv = vint.color ? ft_distance_between_points(start, vint) : INT_MAX;
-	ray->wall_hit_x = (disth < distv) ? hint.x : vint.x;
-	ray->wall_hit_y = (disth < distv) ? hint.y : vint.y;
-	ray->distance = (disth < distv) ? disth : distv;
-	ray->was_wall_hit_vertical = (disth <= distv) ? 0 : 1;
-	return (ray);
+	game->rays[num_ray]->wall_hit_x = (disth < distv) ? hint.x : vint.x;
+	game->rays[num_ray]->wall_hit_y = (disth < distv) ? hint.y : vint.y;
+	game->rays[num_ray]->distance = (disth < distv) ? disth : distv;
+	game->rays[num_ray]->was_wall_hit_vertical = (disth <= distv) ? 0 : 1;
 }
 
 int					ft_raycast(t_game *game)
 {
 	float	ray_angle;
 	float	num_ray;
-	t_ray	**rays;
 	int		i;
 
 	i = 0;
 	num_ray = game->cubfile->width / WALL_STRIP_WIDTH;
 	ray_angle = game->player->rotation_angle - (ft_degtorad(FOV_ANGLE) / 2);
-	rays = (t_ray **)malloc(num_ray * sizeof(t_ray));
-	if (!rays)
-		return (0);
 	while (i < num_ray)
 	{
 		ray_angle = ft_normalize_angle(ray_angle);
 		game->ray_width = i;
-		rays[i] = ft_create_ray(game, ft_horz_intercept(game, ray_angle),
+		ft_create_ray(game, i, ft_horz_intercept(game, ray_angle),
 								ft_vert_intercept(game, ray_angle));
-		if (!rays[i])
-			return (0);
-		rays[i]->ray_angle = ray_angle;
+		game->rays[i]->ray_angle = ray_angle;
 		ray_angle += ft_degtorad(FOV_ANGLE) / num_ray;
 		i++;
 	}
-	ft_helper_rc(game, rays);
 	return (1);
 }

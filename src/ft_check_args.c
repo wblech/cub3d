@@ -6,7 +6,7 @@
 /*   By: wbertoni <wbertoni@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/28 18:30:13 by wbertoni          #+#    #+#             */
-/*   Updated: 2021/03/28 18:30:44 by wbertoni         ###   ########.fr       */
+/*   Updated: 2021/04/02 08:58:47 by wbertoni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ int			check_args(int argc, char **argv)
 		ft_putstr("First argument is not .cub");
 		exit(0);
 	}
-	else if (argc == 3 && ft_memcmp(argv[2], "--save", 6))
+	else if (argc == 3 && ft_memcmp(argv[2], "--save", 7))
 	{
 		ft_putstr("Second argument is invalid. Try --save");
 		exit(0);

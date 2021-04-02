@@ -6,7 +6,7 @@
 /*   By: wbertoni <wbertoni@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/15 00:25:51 by wbertoni          #+#    #+#             */
-/*   Updated: 2021/03/28 19:11:16 by wbertoni         ###   ########.fr       */
+/*   Updated: 2021/04/02 08:44:02 by wbertoni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,11 +14,15 @@
 
 static t_error_file	ft_get_player_position_cubfile(t_file *file)
 {
-	int i;
-	int j;
+	int				i;
+	int				j;
+	t_error_file	e;
 
 	i = 0;
 	j = 0;
+	e = noerror;
+	if ((e = ft_is_player_doubled(file)) != noerror)
+		return (e);
 	while (file->map->map[i] != '\0')
 	{
 		while (file->map->map[i][j] != '\0')
@@ -26,11 +30,8 @@ static t_error_file	ft_get_player_position_cubfile(t_file *file)
 			if (file->map->map[i][j] == 'N' || file->map->map[i][j] == 'S'
 			|| file->map->map[i][j] == 'W' || file->map->map[i][j] == 'E')
 			{
-				file->map->initial_pl_cardinal = file->map->map[i][j];
-				file->map->initial_pl_x = j * TILE_SIZE;
-				file->map->initial_pl_y = i * TILE_SIZE;
-				file->map->map[i][j] = '0';
-				return (noerror);
+				ft_set_player_position(file, i, j);
+				return (e);
 			}
 			j++;
 		}

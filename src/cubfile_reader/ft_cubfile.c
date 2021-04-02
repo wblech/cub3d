@@ -6,7 +6,7 @@
 /*   By: wbertoni <wbertoni@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/08 16:45:43 by wbertoni          #+#    #+#             */
-/*   Updated: 2021/04/01 17:13:12 by wbertoni         ###   ########.fr       */
+/*   Updated: 2021/04/02 11:48:10 by wbertoni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,16 +84,16 @@ t_file			*ft_cubfile(char *cubfile)
 	t_error_file	e;
 
 	e = enull;
-	file = ft_create_file_struct();
-	if (!file || (e = ft_malloc_file_map(file)) != noerror)
-	{
-		ft_print_error_cubfile(e);
-		return (NULL);
-	}
 	fopen = open(cubfile, O_RDONLY);
 	if (fopen < 0)
 	{
 		perror("Error\n");
+		return (NULL);
+	}
+	file = ft_create_file_struct();
+	if (!file || (e = ft_malloc_file_map(file)) != noerror)
+	{
+		ft_print_error_cubfile(e);
 		return (NULL);
 	}
 	if (!ft_read_cubfile(file, fopen)

@@ -1,36 +1,35 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_helper_raycasting.c                             :+:      :+:    :+:   */
+/*   ft_create_ray_once.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: wbertoni <wbertoni@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/12/26 13:05:35 by wbertoni          #+#    #+#             */
-/*   Updated: 2021/04/02 11:09:00 by wbertoni         ###   ########.fr       */
+/*   Created: 2021/04/02 11:52:21 by wbertoni          #+#    #+#             */
+/*   Updated: 2021/04/02 11:57:45 by wbertoni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-float	get_x_to_check(float next_x, float ray_angle, int is_vert)
+int	ft_create_ray_once(t_game *game)
 {
-	return (next_x
-		+ ((ft_calc_facing(ray_angle, left) && is_vert) ? -1 : 0));
-}
+	t_ray	**rays;
+	float	num_ray;
+	int		i;
 
-float	get_y_to_check(float next_y, float ray_angle, int is_vert)
-{
-	return (next_y
-		+ ((ft_calc_facing(ray_angle, up) && !is_vert) ? -1 : 0));
-}
-
-/*
-** Function only to help fullfill the norminette rules
-*/
-
-void	ft_helper_rc(t_game *game, t_ray **rays)
-{
-	if (game->rays != NULL)
-		ft_del_rays(game);
+	i = 0;
+	num_ray = game->cubfile->width / WALL_STRIP_WIDTH;
+	rays = (t_ray **)malloc(num_ray * sizeof(t_ray));
+	if (!rays)
+		return (FALSE);
+	while (i < num_ray)
+	{
+		rays[i] = (t_ray *)malloc(sizeof(t_ray));
+		if (!rays)
+			return (FALSE);
+		i++;
+	}
 	game->rays = rays;
+	return (TRUE);
 }

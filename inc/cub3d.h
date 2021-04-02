@@ -6,7 +6,7 @@
 /*   By: wbertoni <wbertoni@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/17 19:26:09 by wbertoni          #+#    #+#             */
-/*   Updated: 2021/03/31 17:30:13 by wbertoni         ###   ########.fr       */
+/*   Updated: 2021/04/02 11:55:50 by wbertoni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -163,8 +163,29 @@ int			ft_get_visible_sprites(t_game *game, t_sprite *visible_sprites);
 void		ft_draw_sprite_3d(t_game *game, t_img *img, t_sprite sprite);
 void		ft_render_sprite_projection(t_game *game, t_img *img);
 
+/*
+** ft_save_bmp.c
+*/
 int			save_bmp_file(t_game *game);
 
+/*
+** ft_check_args.c
+*/
 int			check_args(int argc, char **argv);
+
+/*
+** ft_check_resolution.c
+*/
+void		ft_check_resolution(t_game *game);
+
+/*
+** ft_create_ray_once.c
+*/
+int			ft_create_ray_once(t_game *game);
+
+/*
+** ft_setup_norminette.c
+*/
+int			ft_setup_norminette(t_game *game, char * path);
 
 #endif
