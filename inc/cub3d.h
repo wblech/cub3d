@@ -6,7 +6,7 @@
 /*   By: wbertoni <wbertoni@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/17 19:26:09 by wbertoni          #+#    #+#             */
-/*   Updated: 2021/04/02 11:55:50 by wbertoni         ###   ########.fr       */
+/*   Updated: 2021/04/02 12:07:33 by wbertoni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -186,6 +186,11 @@ int			ft_create_ray_once(t_game *game);
 /*
 ** ft_setup_norminette.c
 */
-int			ft_setup_norminette(t_game *game, char * path);
+int			ft_setup_norminette(t_game *game, char *path);
+
+/*
+** main.c
+*/
+int			ft_initialize_window(t_game *game);
 
 #endif

@@ -45,6 +45,7 @@ SRCS = 	$(DIR_SRC)/cubfile_reader/gnl/get_next_line.c \
 		$(DIR_SRC)/ft_check_args.c \
 		$(DIR_SRC)/ft_check_resolution.c \
 		$(DIR_SRC)/ft_create_ray_once.c \
+		$(DIR_SRC)/ft_setup_norminette.c \
 		$(DIR_SRC)/main.c
 
 NAME = cub3D

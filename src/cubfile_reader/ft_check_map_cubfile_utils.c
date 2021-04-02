@@ -6,7 +6,7 @@
 /*   By: wbertoni <wbertoni@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/10 12:22:06 by wbertoni          #+#    #+#             */
-/*   Updated: 2021/04/02 10:27:11 by wbertoni         ###   ########.fr       */
+/*   Updated: 2021/04/02 12:03:58 by wbertoni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ int			ft_check_map_cubfile_has_empty_line(char **line)
 
 int			ft_check_diagonal_map_surronded(t_map *map)
 {
-		int		i;
+	int		i;
 	int		j;
 	t_face	direction;
 
@@ -70,13 +70,10 @@ int			ft_check_diagonal_map_surronded(t_map *map)
 		{
 			if (map->map[i][j] != '1' && map->map[i][j] != ' ')
 			{
-				if (map->map[i-1][j-1] == ' ')
-					return (FALSE);
-				else if (map->map[i-1][j+1] == ' ')
-					return (FALSE);
-				else if (map->map[i+1][j-1] == ' ')
-					return (FALSE);
-				else if (map->map[i+1][j+1] == ' ')
+				if (map->map[i - 1][j - 1] == ' '
+				|| map->map[i - 1][j + 1] == ' '
+				|| map->map[i + 1][j - 1] == ' '
+				|| map->map[i + 1][j + 1] == ' ')
 					return (FALSE);
 			}
 			j++;
