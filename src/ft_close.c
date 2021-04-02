@@ -6,7 +6,7 @@
 /*   By: wbertoni <wbertoni@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/04 17:44:26 by wbertoni          #+#    #+#             */
-/*   Updated: 2021/04/01 16:57:47 by wbertoni         ###   ########.fr       */
+/*   Updated: 2021/04/02 15:41:23 by wbertoni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,6 +73,7 @@ int			ft_close(t_game *game)
 		free(game->frame);
 	}
 	free(game->player);
+	free(game->mlx_ptr);
 	free(game);
 	exit(0);
 	return (1);

@@ -6,7 +6,7 @@
 /*   By: wbertoni <wbertoni@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/28 18:29:49 by wbertoni          #+#    #+#             */
-/*   Updated: 2021/04/02 11:54:06 by wbertoni         ###   ########.fr       */
+/*   Updated: 2021/04/02 15:27:08 by wbertoni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,14 +55,14 @@ static	int	ft_start_game_or_draw_bmp(t_game *game, int argc)
 {
 	if (argc == 2)
 	{
+		game->bmp = FALSE;
 		game->win_ptr = mlx_new_window(game->mlx_ptr, game->cubfile->width,
-		game->cubfile->height, "CUB3d :: By Wincenty");
+		game->cubfile->height, "CUB3D :: By Wincenty");
 		if (ft_get_error(&ft_is_pointer_null, game->win_ptr,
 		"Error:\nInitialiasing mlx_new_window"))
 			return (FALSE);
 		mlx_put_image_to_window(game->mlx_ptr, game->win_ptr,
 		game->frame->img, 0, 0);
-		game->bmp = FALSE;
 	}
 	else
 	{

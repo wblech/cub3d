@@ -6,7 +6,7 @@
 /*   By: wbertoni <wbertoni@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/28 15:54:39 by wbertoni          #+#    #+#             */
-/*   Updated: 2021/03/28 15:57:01 by wbertoni         ###   ########.fr       */
+/*   Updated: 2021/04/02 13:24:02 by wbertoni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ int			save_bmp_file(t_game *game)
 	int		x;
 	int		y;
 
-	if ((fd = open("im.bmp", O_WRONLY | O_CREAT | O_TRUNC | O_APPEND, 777)) < 0)
+	if ((fd = open("im.bmp", O_WRONLY | O_CREAT | O_TRUNC | O_APPEND, 444)) < 0)
 		return (0);
 	bmp_header(game, fd);
 	y = 0;

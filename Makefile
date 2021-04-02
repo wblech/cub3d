@@ -51,7 +51,7 @@ SRCS = 	$(DIR_SRC)/cubfile_reader/gnl/get_next_line.c \
 NAME = cub3D
 OBJ = $(patsubst $(DIR_SRC)/%.c, $(DIR_OBJ)/%.o, $(SRCS))
 CC = clang
-CFLAGS = -Wall -Werror -Wextra -g -fsanitize=address
+CFLAGS = -Wall -Werror -Wextra
 LFLAGS =	-lbsd -lm -lX11 -lXext \
 			-L ./$(DIR_LIBFT) -lft \
 			-L ./$(DIR_MLX) -lmlx

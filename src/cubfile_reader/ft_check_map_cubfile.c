@@ -6,7 +6,7 @@
 /*   By: wbertoni <wbertoni@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/05 18:34:40 by wbertoni          #+#    #+#             */
-/*   Updated: 2021/04/02 10:26:58 by wbertoni         ###   ########.fr       */
+/*   Updated: 2021/04/02 14:57:14 by wbertoni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,6 +95,9 @@ static int		ft_check_map_cubfile_border(t_map *map)
 	{
 		while (map->map[i][j] != '\0')
 		{
+			if (map->map[i][j] != '1' && map->map[i][j] != ' '
+			&& i == map->num_row - 1)
+				return (FALSE);
 			if (map->map[i][j] != '1' && map->map[i][j] != ' ')
 			{
 				if (!ft_check_direction(map, i, j, direction))
