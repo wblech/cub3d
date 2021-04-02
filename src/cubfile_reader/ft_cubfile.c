@@ -6,7 +6,7 @@
 /*   By: wbertoni <wbertoni@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/08 16:45:43 by wbertoni          #+#    #+#             */
-/*   Updated: 2021/04/02 11:48:10 by wbertoni         ###   ########.fr       */
+/*   Updated: 2021/04/02 18:13:45 by wbertoni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,9 @@ t_file			*ft_create_file_struct(void)
 	file = (t_file *)malloc(sizeof(t_file));
 	if (!file)
 		return (NULL);
+	g_resolution = FALSE;
+	g_ceiling = FALSE;
+	g_floor = FALSE;
 	file->width = -1;
 	file->height = -1;
 	file->north = NULL;

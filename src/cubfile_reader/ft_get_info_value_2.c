@@ -6,7 +6,7 @@
 /*   By: wbertoni <wbertoni@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/01 18:00:11 by wbertoni          #+#    #+#             */
-/*   Updated: 2021/04/01 18:03:22 by wbertoni         ###   ########.fr       */
+/*   Updated: 2021/04/02 19:25:42 by wbertoni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,4 +35,21 @@ t_error_file	ft_get_texture_path_norminette(t_file *file, char **info)
 	else if (ft_strncmp("S", info[0], 3) == 0)
 		return (erepeat);
 	return (noerror);
+}
+
+int				ft_is_repeated_flag(char **info)
+{
+	if ((ft_strncmp("R", info[0], 3) == 0) && !g_resolution)
+		g_resolution = TRUE;
+	else if ((ft_strncmp("R", info[0], 3) == 0) && g_resolution)
+		return (TRUE);
+	if ((ft_strncmp("F", info[0], 3) == 0) && !g_floor)
+		g_floor = TRUE;
+	else if ((ft_strncmp("F", info[0], 3) == 0) && g_floor)
+		return (TRUE);
+	if ((ft_strncmp("C", info[0], 3) == 0) && !g_ceiling)
+		g_ceiling = TRUE;
+	else if ((ft_strncmp("C", info[0], 3) == 0) && g_ceiling)
+		return (TRUE);
+	return (FALSE);
 }

@@ -6,7 +6,7 @@
 /*   By: wbertoni <wbertoni@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/14 23:40:30 by wbertoni          #+#    #+#             */
-/*   Updated: 2021/04/02 09:28:24 by wbertoni         ###   ########.fr       */
+/*   Updated: 2021/04/02 19:25:16 by wbertoni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,7 +91,12 @@ t_error_file		ft_get_info_value(t_file *file, char **info)
 
 	e = novalidkey;
 	if (ft_strncmp("R", info[0], 3) == 0)
-		e = ft_get_resolution(file, info);
+	{
+		if (ft_is_repeated_flag(info))
+			e = erepeat;
+		else
+			e = ft_get_resolution(file, info);
+	}
 	else if ((ft_strncmp("NO", info[0], 3) == 0)
 	|| (ft_strncmp("SO", info[0], 3) == 0)
 	|| (ft_strncmp("WE", info[0], 3) == 0)
@@ -100,6 +105,11 @@ t_error_file		ft_get_info_value(t_file *file, char **info)
 		e = ft_get_texture_path(file, info);
 	else if ((ft_strncmp("F", info[0], 3) == 0)
 	|| (ft_strncmp("C", info[0], 3) == 0))
-		e = ft_get_ceiling_floor_color(file, info);
+	{
+		if (ft_is_repeated_flag(info))
+			e = erepeat;
+		else
+			e = ft_get_ceiling_floor_color(file, info);
+	}
 	return (e);
 }
